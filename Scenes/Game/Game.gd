@@ -1,7 +1,9 @@
 extends Node2D
-
 export(int) var num_players = null
 onready var board: Node2D = get_node("Board")
+
+# Signals
+signal turn_changed(color);
 
 # All players that we have.
 const ALL_PLAYERS = ["Blue", "Red", "Green", "Yellow"]
@@ -24,3 +26,5 @@ func _ready() -> void:
 	var skip: int = int(ceil(4 / num_players))
 	for idx in range(0, num_players * skip, skip):
 		initiate_player(ALL_PLAYERS[idx], PLAYER_HOME_POSITIONS[idx])
+		
+	emit_signal("turn_changed", "Blue")

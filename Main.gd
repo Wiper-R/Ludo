@@ -1,6 +1,4 @@
 extends Node2D
-
-
 onready var gamescene: PackedScene = preload("res://Scenes/Game/Game.tscn");
 
 func _ready() -> void:
