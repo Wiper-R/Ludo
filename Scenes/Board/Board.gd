@@ -8,4 +8,4 @@ extends Node2D
 # 	T1.position = pos
 
 func add_player(color: String) -> void:
-	var player: PackedScene = load("res://Scenes/Players/%s.tscn" % color);
+	var _player: PackedScene = load("res://Scenes/Players/%s.tscn" % color);
