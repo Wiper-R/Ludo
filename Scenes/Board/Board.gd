@@ -7,5 +7,6 @@ extends Node2D
 # 	var pos = path_curve.get_point_position(0)
 # 	T1.position = pos
 
+
 func add_player(color: String) -> void:
-	var _player: PackedScene = load("res://Scenes/Players/%s.tscn" % color);
+	var _player: PackedScene = load("res://Scenes/Players/%s.tscn" % color)

@@ -29,3 +29,5 @@ func _ready() -> void:
 	var skip: int = int(ceil(4 / num_players))
 	for idx in range(0, num_players * skip, skip):
 		initiate_player(ALL_PLAYERS[idx])
+		
+	print(players)

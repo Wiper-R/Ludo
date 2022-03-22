@@ -1,6 +1,6 @@
 extends Node2D
-
 onready var player: Node2D = get_node("../../")
+onready var game: Node2D = player.get_node("../../../");
 onready var start_point: Vector2 = player.get_path_curve().get_point_position(
 	player.global_home_path_index
 )
@@ -8,11 +8,19 @@ onready var sprite: Sprite = get_node("Sprite")
 onready var board: Node2D = player.get_node("../../")
 
 # -1 means in base.
-var current_position_idx = -1
+var current_position_idx: int setget _set_position_index, _get_position_index
+
+func _get_position_index() -> int:
+	var color: String = player.color;
+	return game.players[color]['tokens'][self.name]
+
+func _set_position_index(value: int) -> void:
+	var color: String = player.color;
+	game.players[color]['tokens']['self.name'] = value
 
 
 func is_in_base() -> bool:
-	return player.global_home_path_index != current_position_idx
+	return player.global_home_path_index != _get_position_index()
 
 
 func _ready() -> void:
@@ -32,7 +40,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if Input.is_action_pressed("ui_up") and is_in_base():
+	if Input.is_action_just_pressed("ui_up") and is_in_base():
 		$AnimationPlayer.play("move_to_start_point")
 		yield($AnimationPlayer, "animation_finished")
 		current_position_idx = player.global_home_path_index
