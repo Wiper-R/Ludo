@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/Players/Player.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Token/Token.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/Yellow_Token.png" type="Texture" id=3]
+
+[node name="Yellow" type="Node2D"]
+script = ExtResource( 1 )
+global_home_path_index = 39
+
+[node name="Tokens" type="Node2D" parent="."]
+
+[node name="T1" parent="Tokens" instance=ExtResource( 2 )]
+position = Vector2( -72, -96 )
+
+[node name="Sprite" parent="Tokens/T1" index="0"]
+texture = ExtResource( 3 )
+
+[node name="T2" parent="Tokens" instance=ExtResource( 2 )]
+position = Vector2( 72, -96 )
+
+[node name="Sprite" parent="Tokens/T2" index="0"]
+texture = ExtResource( 3 )
+
+[node name="T3" parent="Tokens" instance=ExtResource( 2 )]
+position = Vector2( -72, 48 )
+
+[node name="Sprite" parent="Tokens/T3" index="0"]
+texture = ExtResource( 3 )
+
+[node name="T4" parent="Tokens" instance=ExtResource( 2 )]
+position = Vector2( 72, 48 )
+
+[node name="Sprite" parent="Tokens/T4" index="0"]
+texture = ExtResource( 3 )
+
+[editable path="Tokens/T1"]
+[editable path="Tokens/T2"]
+[editable path="Tokens/T3"]
+[editable path="Tokens/T4"]

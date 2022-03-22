@@ -1,0 +1,29 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scenes/Players/Red.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Board/Board.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Board/Board.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Players/Blue.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Game/Game.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/Players/Yellow.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Players/Green.tscn" type="PackedScene" id=7]
+
+[node name="Game" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="Board" parent="." instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+
+[node name="Players" type="Node2D" parent="Board"]
+
+[node name="Red" parent="Board/Players" instance=ExtResource( 1 )]
+position = Vector2( -324, -324 )
+
+[node name="Blue" parent="Board/Players" instance=ExtResource( 4 )]
+position = Vector2( -324, 323 )
+
+[node name="Yellow" parent="Board/Players" instance=ExtResource( 6 )]
+position = Vector2( 324, 323 )
+
+[node name="Green" parent="Board/Players" instance=ExtResource( 7 )]
+position = Vector2( 324, -318 )
