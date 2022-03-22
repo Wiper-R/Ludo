@@ -8,19 +8,11 @@ onready var sprite: Sprite = get_node("Sprite")
 onready var board: Node2D = player.get_node("../../")
 
 # -1 means in base.
-var current_position_idx: int setget _set_position_index, _get_position_index
-
-func _get_position_index() -> int:
-	var color: String = player.color;
-	return game.players[color]['tokens'][self.name]
-
-func _set_position_index(value: int) -> void:
-	var color: String = player.color;
-	game.players[color]['tokens']['self.name'] = value
+var current_position_idx: int = -1;
 
 
 func is_in_base() -> bool:
-	return player.global_home_path_index != _get_position_index()
+	return player.global_home_path_index != current_position_idx
 
 
 func _ready() -> void:
