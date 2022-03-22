@@ -1,12 +1,9 @@
 extends Node2D
 
-# onready var path_curve: Curve2D = $Paths/CommonPath.get_curve()
-# onready var T1: Node2D = $Players/T1;
+onready var players: Node2D = get_node('Players');
 
-# func _ready() -> void:
-# 	var pos = path_curve.get_point_position(0)
-# 	T1.position = pos
-
-
-func add_player(color: String) -> void:
-	var _player: PackedScene = load("res://Scenes/Players/%s.tscn" % color)
+func add_player(color: String, home_position: Vector2) -> void:
+	var player_scene: PackedScene = load("res://Scenes/Players/%s.tscn" % color)
+	var player = player_scene.instance()
+	player.position = home_position
+	players.add_child(player)

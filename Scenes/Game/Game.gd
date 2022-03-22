@@ -6,21 +6,16 @@ onready var board: Node2D = get_node("Board")
 # All players that we have.
 const ALL_PLAYERS = ["Blue", "Red", "Green", "Yellow"]
 
-var players: Dictionary = {}
+# Player Board Positions
+const PLAYER_HOME_POSITIONS = [
+	Vector2(-324, 324),
+	Vector2(-324, -324),
+	Vector2(324, -324),
+	Vector2(324, 324),
+]
 
-
-func initiate_player(color: String) -> void:
-	players[color] = {
-		"tokens":
-		{
-			"T1": -1,
-			"T2": -1,
-			"T3": -1,
-			"T4": -1,
-		}
-	}
-
-	board.add_player(color)
+func initiate_player(color: String, home_position: Vector2) -> void:
+	board.add_player(color, home_position)
 
 
 func _ready() -> void:
@@ -28,6 +23,4 @@ func _ready() -> void:
 	assert(num_players != null, "ERROR: You must set number of players before adding game to tree.")
 	var skip: int = int(ceil(4 / num_players))
 	for idx in range(0, num_players * skip, skip):
-		initiate_player(ALL_PLAYERS[idx])
-		
-	print(players)
+		initiate_player(ALL_PLAYERS[idx], PLAYER_HOME_POSITIONS[idx])
