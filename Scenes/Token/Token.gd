@@ -21,7 +21,7 @@ func has_turn() -> bool:
 
 
 func is_in_base() -> bool:
-	return player.global_home_path_index != current_position_idx
+	return current_position_idx == -1
 
 
 func _ready() -> void:
@@ -58,19 +58,23 @@ func _add_move_to_start_animation():
 
 
 func _move_to_start_point() -> void:
+	is_moving = true;
 	animation_player.play("move_to_start_point")
 
 func _animation_player_animation_finished(anim_name: String) -> void:
 	if anim_name == "move_to_start_point":
 		current_position_idx = 0
+		is_moving = false;
+		
 	elif anim_name == "do_move":
 		current_position_idx += points_to_move
 		points_to_move = 0
+		is_moving = false;
 		
 
 
 func _process(_delta: float) -> void:
-	if !has_turn():
+	if !has_turn() && !is_moving:
 		return
 		
 	if Input.is_action_just_pressed("ui_up") and is_in_base():
@@ -103,10 +107,7 @@ func move(points: int):
 		
 	animation_player.add_animation("do_move", animation);
 	animation_player.play("do_move");
-
-func _on_MoveTimer_timeout() -> void:
-	current_position_idx += 1;
-	position = _get_absolute_position_of_path(current_position_idx);
+	is_moving = true;
 	
 
 
