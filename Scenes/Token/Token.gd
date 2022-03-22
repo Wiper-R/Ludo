@@ -99,7 +99,7 @@ func move(points: int):
 		
 	
 	for i in range(0, points):
-		animation.track_insert_key(scale_track_idx, i * skip + skip / 1.6, initial_scale * 1.4)
+		animation.track_insert_key(scale_track_idx, i * skip + skip / 2.5, initial_scale * 1.4)
 		
 	animation_player.add_animation("do_move", animation);
 	animation_player.play("do_move");
