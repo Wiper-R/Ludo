@@ -74,7 +74,7 @@ func _animation_player_animation_finished(anim_name: String) -> void:
 
 
 func _process(_delta: float) -> void:
-	if !has_turn() && !is_moving:
+	if !has_turn() || is_moving:
 		return
 		
 	if Input.is_action_just_pressed("ui_up") and is_in_base():
@@ -92,10 +92,10 @@ func move(points: int):
 
 	var pos_track_idx = animation.add_track(Animation.TYPE_VALUE)
 	var scale_track_idx = animation.add_track(Animation.TYPE_VALUE)
-	animation.track_set_interpolation_type(pos_track_idx, Animation.INTERPOLATION_CUBIC)
-	animation.track_set_interpolation_type(scale_track_idx, Animation.INTERPOLATION_CUBIC)
 	animation.track_set_path(pos_track_idx, ":position");
 	animation.track_set_path(scale_track_idx, ":scale");
+	
+	animation.track_insert_key(scale_track_idx, 0, initial_scale)
 	
 	for i in range(0, points + 1):
 		animation.track_insert_key(pos_track_idx, i * skip, _get_absolute_position_of_path(current_position_idx + i))
