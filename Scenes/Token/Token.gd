@@ -31,14 +31,11 @@ func is_in_base() -> bool:
 func _ready() -> void:
 	_add_move_to_start_animation()
 
-func _get_absolute_position_of_path(idx: int) -> Vector2:
-	var pos;
+func _get_absolute_position_of_path(idx: int) -> Vector2:	
+	if is_in_home_row:
+		idx -= player.home_row_entry_point
 	
-	if !is_in_home_row:
-		pos = player.get_path_curve().get_point_position(idx) - (player.global_position - board.global_position)
-	else:
-		pos = player.get_home_path_curve().get_point_position(idx - player.home_row_entry_point) - (player.global_position - board.global_position)
-		
+	var pos = player.get_home_path_curve().get_point_position(idx) - (player.global_position - board.global_position)
 	pos.y -= $Sprite.texture.get_size().y * $Sprite.scale.y / 2
 	return pos;
 
