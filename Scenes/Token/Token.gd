@@ -129,6 +129,7 @@ func move(points: int) -> void:
 	# Reset Variables
 	is_moving = false
 		
-		
 
-
+func _on_Area2D_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if (event is InputEventMouseButton && event.is_pressed()):
+		print("Clicked: ", player.color)
