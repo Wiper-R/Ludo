@@ -29,7 +29,7 @@ func is_in_base() -> bool:
 
 
 func _ready() -> void:
-	_add_move_to_start_animation()
+	pass
 
 func _get_absolute_position_of_path(idx: int) -> Vector2:
 	var pos;
@@ -43,35 +43,32 @@ func _get_absolute_position_of_path(idx: int) -> Vector2:
 	return pos;
 
 
-func _add_move_to_start_animation():
+func _move_to_start():
+	is_moving = true;
+	
+	var length = 0.5;
 	var animation = Animation.new()
-	animation.set_length(1)
+	animation.set_length(length)
 	
 	# Position Animation
 	var pos_track_idx = animation.add_track(Animation.TYPE_VALUE)
 	animation.track_set_path(pos_track_idx, ":position")
 	animation.track_insert_key(pos_track_idx, 0.00, position)
 	var new_pos: Vector2 = _get_absolute_position_of_path(player.global_home_path_index)
-	animation.track_insert_key(pos_track_idx, 0.75, new_pos)
+	animation.track_insert_key(pos_track_idx, length, new_pos)
 	
 	# Scale Animation
 	var scale_track_idx = animation.add_track(Animation.TYPE_VALUE)
 	animation.track_set_path(scale_track_idx, ":scale");
 	animation.track_insert_key(scale_track_idx, 0.00, initial_scale);
-	animation.track_insert_key(scale_track_idx, 0.2, initial_scale * 1.4);
-	animation.track_insert_key(scale_track_idx, 0.8, initial_scale);
+	animation.track_insert_key(scale_track_idx, length / 2, initial_scale * 1.4);
+	animation.track_insert_key(scale_track_idx, length, initial_scale);
+	animation_player.add_animation("move_to_start", animation)
 	
-	_unused = animation_player.add_animation("move_to_start_point", animation)
-
-
-func _move_to_start_point() -> void:
-	is_moving = true;
-	animation_player.play("move_to_start_point")
+	animation_player.play("move_to_start")
 	yield(animation_player, "animation_finished")
 	current_position_idx = player.global_home_path_index
 	is_moving = false
-		
-
 
 func _process(_delta: float) -> void:
 	if !should_process:
@@ -80,11 +77,12 @@ func _process(_delta: float) -> void:
 	if !has_turn() || is_moving:
 		return
 		
-	if Input.is_action_just_pressed("ui_up") and is_in_base():
-		_move_to_start_point()
-
-	if Input.is_action_just_pressed("ui_down"):
-		move(4)
+	if Input.is_action_just_pressed("ui_up"):
+		if is_in_base():
+			_move_to_start()
+		else:
+			move(4)
+	
 	
 
 func move(points: int) -> void:
