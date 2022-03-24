@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Board
+
 onready var players: Node2D = get_node('Players');
 
 func add_player(color: String, home_position: Vector2) -> void:

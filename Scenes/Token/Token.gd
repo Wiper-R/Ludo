@@ -1,12 +1,14 @@
 extends Node2D
-onready var player: Node2D = get_node("../../")
+
+class_name Token
+onready var player: Player = get_node("../../")
 onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
-onready var game: Node2D = player.get_node("../../../")
+onready var game: Game = player.get_node("../../../")
 onready var start_point: Vector2 = player.get_path_curve().get_point_position(
 	player.global_home_path_index
 )
 onready var sprite: Sprite = get_node("Sprite")
-onready var board: Node2D = player.get_node("../../")
+onready var board: Board = player.get_node("../../")
 onready var initial_scale: Vector2 = scale;
 onready var move_audio: AudioStreamPlayer = get_node("MoveAudio");
 
@@ -15,7 +17,6 @@ export (bool) var should_process;
 
 # -1 means in base.
 var current_position_idx: int = -1
-var _unused;
 var is_moving: bool = false;
 var is_in_home_row = false;
 	
@@ -37,7 +38,7 @@ func _get_absolute_position_of_path(idx: int) -> Vector2:
 	if !is_in_home_row:
 		pos = player.get_path_curve().get_point_position(idx) - (player.global_position - board.global_position)
 	else:
-		pos = player.get_home_path_curve().get_point_position(idx - player.home_row_entry_point) - (player.global_position - board.global_position)
+		pos = player.get_home_path_curve().get_point_position(idx) - (player.global_position - board.global_position)
 		
 	pos.y -= $Sprite.texture.get_size().y * $Sprite.scale.y / 2
 	return pos;
@@ -81,7 +82,7 @@ func _process(_delta: float) -> void:
 		if is_in_base():
 			_move_to_start()
 		else:
-			move(4)
+			move(56)
 	
 	
 
@@ -94,8 +95,12 @@ func move(points: int) -> void:
 	for i in range(points):
 		current_position_idx += 1
 		
-		if current_position_idx > player.home_row_entry_point && !is_in_home_row:
+		if current_position_idx - 1 == player.home_row_entry_point  && !is_in_home_row:
 			is_in_home_row = true;
+			current_position_idx = 0
+			
+		if current_position_idx > 51:
+			current_position_idx = 0
 		
 		var animation = Animation.new()
 		animation.set_length(length)

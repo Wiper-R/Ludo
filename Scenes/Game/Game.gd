@@ -1,9 +1,11 @@
 extends Node2D
+
+class_name Game
 export(int) var num_players = null
 onready var board: Node2D = get_node("Board")
 
 # Signals
-signal turn_changed(color);
+signal turn_changed;
 
 # All players that we have.
 const ALL_PLAYERS = ["Blue", "Red", "Green", "Yellow"]
@@ -23,8 +25,10 @@ func initiate_player(color: String, home_position: Vector2) -> void:
 func _ready() -> void:
 	# Check that players must be set.
 	assert(num_players != null, "ERROR: You must set number of players before adding game to tree.")
+	
 	var skip: int = int(ceil(4 / num_players))
+	
 	for idx in range(0, num_players * skip, skip):
 		initiate_player(ALL_PLAYERS[idx], PLAYER_HOME_POSITIONS[idx])
 		
-	emit_signal("turn_changed", "Blue")
+	emit_signal("turn_changed", "Red")

@@ -1,4 +1,6 @@
 extends Node2D
+
+class_name Player
 export (int) var global_home_path_index = -1;
 export (int) var home_row_entry_point = -1;
 onready var game: Node2D = get_node("../../../");
