@@ -12,7 +12,6 @@ onready var initial_scale: Vector2 = scale;
 # -1 means in base.
 var current_position_idx: int = -1
 var _unused;
-var points_to_move: int = 0;
 var is_moving: bool = false;
 	
 
@@ -60,16 +59,9 @@ func _add_move_to_start_animation():
 func _move_to_start_point() -> void:
 	is_moving = true;
 	animation_player.play("move_to_start_point")
-
-func _animation_player_animation_finished(anim_name: String) -> void:
-	if anim_name == "move_to_start_point":
-		current_position_idx = 0
-		is_moving = false;
-		
-	elif anim_name == "do_move":
-		current_position_idx += points_to_move
-		points_to_move = 0
-		is_moving = false;
+	yield(animation_player, "animation_finished")
+	current_position_idx = 0
+	is_moving = false
 		
 
 
@@ -82,32 +74,46 @@ func _process(_delta: float) -> void:
 
 	if Input.is_action_just_pressed("ui_down"):
 		move(4)
+	
 
-func move(points: int):
-	points_to_move = points;
-	var animation = Animation.new();
-	var skip = 0.5;
-	var length = points * skip;
-	animation.set_length(length)
-
-	var pos_track_idx = animation.add_track(Animation.TYPE_VALUE)
-	var scale_track_idx = animation.add_track(Animation.TYPE_VALUE)
-	animation.track_set_path(pos_track_idx, ":position");
-	animation.track_set_path(scale_track_idx, ":scale");
+func move(points: int) -> void:
+	var length = 0.4
+	var wait_time = 0.08
 	
-	animation.track_insert_key(scale_track_idx, 0, initial_scale)
-	
-	for i in range(0, points + 1):
-		animation.track_insert_key(pos_track_idx, i * skip, _get_absolute_position_of_path(current_position_idx + i))
-		animation.track_insert_key(scale_track_idx, i * skip + skip, initial_scale)
 		
-	
-	for i in range(0, points):
-		animation.track_insert_key(scale_track_idx, i * skip + skip / 2.5, initial_scale * 1.4)
+	for i in range(points):
+		var animation = Animation.new()
+		animation.set_length(length)
 		
-	animation_player.add_animation("do_move", animation);
-	animation_player.play("do_move");
-	is_moving = true;
+		# Position
+		var track_idx = animation.add_track(Animation.TYPE_VALUE)
+		animation.track_set_path(track_idx, ":position")
+		animation.track_insert_key(track_idx, 0, _get_absolute_position_of_path(current_position_idx))
+		animation.track_insert_key(track_idx, length, _get_absolute_position_of_path(current_position_idx + 1))
+		
+		
+		# Scale
+		track_idx = animation.add_track(Animation.TYPE_VALUE)
+		animation.track_set_path(track_idx, ":scale")
+		animation.track_insert_key(track_idx, 0, initial_scale)
+		animation.track_insert_key(track_idx, length / 2, initial_scale * 1.4)
+		animation.track_insert_key(track_idx, length, initial_scale)
+		
+		
+		animation_player.add_animation("move", animation)
+		animation_player.play("move")
+		yield(animation_player, "animation_finished")
+		yield(get_tree().create_timer(wait_time), "timeout")
+		current_position_idx += 1
+		
+	# Do Rest of the things (i.e checking for another token or group etc)
 	
+	
+	
+	
+	# Reset Variables
+	is_moving = false
+		
+		
 
 
