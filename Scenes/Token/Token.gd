@@ -8,11 +8,16 @@ onready var start_point: Vector2 = player.get_path_curve().get_point_position(
 onready var sprite: Sprite = get_node("Sprite")
 onready var board: Node2D = player.get_node("../../")
 onready var initial_scale: Vector2 = scale;
+onready var move_audio: AudioStreamPlayer = get_node("MoveAudio");
+
+# Temp variable
+export (bool) var should_process;
 
 # -1 means in base.
 var current_position_idx: int = -1
 var _unused;
 var is_moving: bool = false;
+var is_in_home_row = false;
 	
 
 func has_turn() -> bool:
@@ -26,11 +31,14 @@ func is_in_base() -> bool:
 func _ready() -> void:
 	_add_move_to_start_animation()
 
-	# Connecting Signals
-	animation_player.connect("animation_finished", self, "_animation_player_animation_finished")
-
 func _get_absolute_position_of_path(idx: int) -> Vector2:
-	var pos = player.get_path_curve().get_point_position(idx) - (player.global_position - board.global_position)
+	var pos;
+	
+	if !is_in_home_row:
+		pos = player.get_path_curve().get_point_position(idx) - (player.global_position - board.global_position)
+	else:
+		pos = player.get_home_path_curve().get_point_position(idx - player.home_row_entry_point) - (player.global_position - board.global_position)
+		
 	pos.y -= $Sprite.texture.get_size().y * $Sprite.scale.y / 2
 	return pos;
 
@@ -60,12 +68,15 @@ func _move_to_start_point() -> void:
 	is_moving = true;
 	animation_player.play("move_to_start_point")
 	yield(animation_player, "animation_finished")
-	current_position_idx = 0
+	current_position_idx = player.global_home_path_index
 	is_moving = false
 		
 
 
 func _process(_delta: float) -> void:
+	if !should_process:
+		return
+	
 	if !has_turn() || is_moving:
 		return
 		
@@ -77,19 +88,25 @@ func _process(_delta: float) -> void:
 	
 
 func move(points: int) -> void:
-	var length = 0.4
+	is_moving = true;
+	var length = 0.2
 	var wait_time = 0.08
 	
 		
 	for i in range(points):
+		current_position_idx += 1
+		
+		if current_position_idx > player.home_row_entry_point && !is_in_home_row:
+			is_in_home_row = true;
+		
 		var animation = Animation.new()
 		animation.set_length(length)
 		
 		# Position
 		var track_idx = animation.add_track(Animation.TYPE_VALUE)
 		animation.track_set_path(track_idx, ":position")
-		animation.track_insert_key(track_idx, 0, _get_absolute_position_of_path(current_position_idx))
-		animation.track_insert_key(track_idx, length, _get_absolute_position_of_path(current_position_idx + 1))
+		animation.track_insert_key(track_idx, 0, position)
+		animation.track_insert_key(track_idx, length, _get_absolute_position_of_path(current_position_idx))
 		
 		
 		# Scale
@@ -103,8 +120,8 @@ func move(points: int) -> void:
 		animation_player.add_animation("move", animation)
 		animation_player.play("move")
 		yield(animation_player, "animation_finished")
+		move_audio.play()
 		yield(get_tree().create_timer(wait_time), "timeout")
-		current_position_idx += 1
 		
 	# Do Rest of the things (i.e checking for another token or group etc)
 	

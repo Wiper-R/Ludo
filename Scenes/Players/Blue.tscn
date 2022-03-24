@@ -6,12 +6,15 @@
 
 [node name="Blue" type="Node2D"]
 script = ExtResource( 1 )
+global_home_path_index = 0
+home_row_entry_point = 50
 _color = "Blue"
 
 [node name="Tokens" type="Node2D" parent="."]
 
 [node name="T1" parent="Tokens" instance=ExtResource( 2 )]
 position = Vector2( -72, -96 )
+should_process = true
 
 [node name="Sprite" parent="Tokens/T1" index="0"]
 texture = ExtResource( 3 )
