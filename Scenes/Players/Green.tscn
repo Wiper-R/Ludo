@@ -14,6 +14,7 @@ _color = "Green"
 
 [node name="T1" parent="Tokens" instance=ExtResource( 2 )]
 position = Vector2( -72, -96 )
+should_process = true
 
 [node name="Sprite" parent="Tokens/T1" index="0"]
 texture = ExtResource( 3 )

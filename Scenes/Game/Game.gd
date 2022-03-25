@@ -31,4 +31,4 @@ func _ready() -> void:
 	for idx in range(0, num_players * skip, skip):
 		initiate_player(ALL_PLAYERS[idx], PLAYER_HOME_POSITIONS[idx])
 		
-	emit_signal("turn_changed", "Red")
+	emit_signal("turn_changed", "Yellow")

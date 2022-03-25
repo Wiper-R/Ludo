@@ -3,5 +3,5 @@ onready var gamescene: PackedScene = preload("res://Scenes/Game/Game.tscn");
 
 func _ready() -> void:
 	var game: Node2D = gamescene.instance();
-	game.num_players = 3;
+	game.num_players = 4;
 	add_child(game)

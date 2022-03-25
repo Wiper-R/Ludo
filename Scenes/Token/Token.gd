@@ -1,5 +1,4 @@
 extends Node2D
-
 class_name Token
 onready var player: Player = get_node("../../")
 onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
@@ -19,6 +18,7 @@ export (bool) var should_process;
 var current_position_idx: int = -1
 var is_moving: bool = false;
 var is_in_home_row = false;
+var is_in_home = false;
 	
 
 func has_turn() -> bool:
@@ -31,6 +31,14 @@ func is_in_base() -> bool:
 
 func _ready() -> void:
 	pass
+	
+func can_move() -> bool:
+	return true && !is_moving
+	
+func switch_moveable_animation(switch: bool):
+	if $MoveableSprite.visible == switch:
+		return
+	$MoveableSprite.set_deferred("visible", switch)
 
 func _get_absolute_position_of_path(idx: int) -> Vector2:
 	var pos;
@@ -42,6 +50,7 @@ func _get_absolute_position_of_path(idx: int) -> Vector2:
 		
 	pos.y -= $Sprite.texture.get_size().y * $Sprite.scale.y / 2
 	return pos;
+
 
 
 func _move_to_start():
@@ -82,9 +91,10 @@ func _process(_delta: float) -> void:
 		if is_in_base():
 			_move_to_start()
 		else:
-			move(56)
-	
-	
+			move(4)
+			
+	switch_moveable_animation(can_move())
+
 
 func move(points: int) -> void:
 	is_moving = true;
@@ -101,6 +111,9 @@ func move(points: int) -> void:
 			
 		if current_position_idx > 51:
 			current_position_idx = 0
+			
+		if current_position_idx == 5 && is_in_home_row:
+			is_in_home = true;
 		
 		var animation = Animation.new()
 		animation.set_length(length)
@@ -123,7 +136,7 @@ func move(points: int) -> void:
 		animation_player.add_animation("move", animation)
 		animation_player.play("move")
 		yield(animation_player, "animation_finished")
-		move_audio.play()
+		# move_audio.play()
 		yield(get_tree().create_timer(wait_time), "timeout")
 		
 	# Do Rest of the things (i.e checking for another token or group etc)
