@@ -33,11 +33,12 @@ func _ready() -> void:
 	pass
 	
 func can_move() -> bool:
-	return true && !is_moving
+	return false && !is_moving
 	
 func switch_moveable_animation(switch: bool):
 	if $MoveableSprite.visible == switch:
 		return
+		
 	$MoveableSprite.set_deferred("visible", switch)
 
 func _get_absolute_position_of_path(idx: int) -> Vector2:
@@ -81,11 +82,11 @@ func _move_to_start():
 	is_moving = false
 
 func _process(_delta: float) -> void:
-	if !should_process:
-		return
+	#if !should_process:
+		#return
 	
-	if !has_turn() || is_moving:
-		return
+	#if !has_turn() || is_moving:
+		#return
 		
 	if Input.is_action_just_pressed("ui_up"):
 		if is_in_base():
@@ -105,11 +106,11 @@ func move(points: int) -> void:
 	for i in range(points):
 		current_position_idx += 1
 		
+		if current_position_idx > 51:
+			current_position_idx = 0
+		
 		if current_position_idx - 1 == player.home_row_entry_point  && !is_in_home_row:
 			is_in_home_row = true;
-			current_position_idx = 0
-			
-		if current_position_idx > 51:
 			current_position_idx = 0
 			
 		if current_position_idx == 5 && is_in_home_row:
