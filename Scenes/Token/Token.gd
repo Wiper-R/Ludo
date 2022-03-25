@@ -8,7 +8,7 @@ onready var start_point: Vector2 = player.get_path_curve().get_point_position(
 )
 onready var sprite: Sprite = get_node("Sprite")
 onready var board: Board = player.get_node("../../")
-onready var initial_scale: Vector2 = scale;
+onready var initial_scale: Vector2 = sprite.scale;
 onready var move_audio: AudioStreamPlayer = get_node("MoveAudio");
 
 # Temp variable
@@ -69,7 +69,7 @@ func _move_to_start():
 	
 	# Scale Animation
 	var scale_track_idx = animation.add_track(Animation.TYPE_VALUE)
-	animation.track_set_path(scale_track_idx, ":scale");
+	animation.track_set_path(scale_track_idx, "Sprite:scale");
 	animation.track_insert_key(scale_track_idx, 0.00, initial_scale);
 	animation.track_insert_key(scale_track_idx, length / 2, initial_scale * 1.4);
 	animation.track_insert_key(scale_track_idx, length, initial_scale);
@@ -127,7 +127,7 @@ func move(points: int) -> void:
 		
 		# Scale
 		track_idx = animation.add_track(Animation.TYPE_VALUE)
-		animation.track_set_path(track_idx, ":scale")
+		animation.track_set_path(track_idx, "Sprite:scale")
 		animation.track_insert_key(track_idx, 0, initial_scale)
 		animation.track_insert_key(track_idx, length / 2, initial_scale * 1.4)
 		animation.track_insert_key(track_idx, length, initial_scale)
