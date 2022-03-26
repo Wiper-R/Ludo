@@ -33,7 +33,7 @@ func _ready() -> void:
 	pass
 	
 func can_move() -> bool:
-	return false && !is_moving
+	return true && !is_moving
 	
 func switch_moveable_animation(switch: bool):
 	if $MoveableSprite.visible == switch:
@@ -82,11 +82,11 @@ func _move_to_start():
 	is_moving = false
 
 func _process(_delta: float) -> void:
-	#if !should_process:
-		#return
+	if !should_process:
+		return
 	
-	#if !has_turn() || is_moving:
-		#return
+	if !has_turn() || is_moving:
+		return
 		
 	if Input.is_action_just_pressed("ui_up"):
 		if is_in_base():
