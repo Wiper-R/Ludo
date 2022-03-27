@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/Token/Token.gd" type="Script" id=1]
 [ext_resource path="res://assets/audio/move.wav" type="AudioStream" id=2]
-[ext_resource path="res://assets/Yellow_Token.png" type="Texture" id=3]
+[ext_resource path="res://assets/Blue_Token.png" type="Texture" id=3]
 [ext_resource path="res://assets/circle.png" type="Texture" id=4]
 [ext_resource path="res://assets/base_border.png" type="Texture" id=5]
 
@@ -49,7 +49,7 @@ volume_db = -6.154
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-polygon = PoolVector2Array( -2, 30, -6, 23, -23, -6, -25, -14, -26, -21, -24, -28, -20, -34, -15, -39, -7, -43, 2, -44, 10, -42, 16, -39, 20, -35, 22, -32, 25, -27, 27, -19, 26, -11, 23, -5, 21, -1, 19, 2, 2, 31, 0, 34 )
+polygon = PoolVector2Array( -28, -4, -32, -15, -31, -24, -28, -31, -22, -38, -15, -42, -7, -44, 2, -44, 16, -39, 22, -32, 25, -27, 27, -19, 26, -11, -3, 34 )
 
 [node name="MoveableSpriteAnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "rotation"

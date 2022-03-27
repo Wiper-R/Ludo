@@ -3,6 +3,7 @@ extends Node2D
 class_name Game
 export(int) var num_players = null
 onready var board: Node2D = get_node("Board")
+onready var players: Node2D = board.get_node("Players")
 
 # Signals
 signal turn_changed;
@@ -31,4 +32,7 @@ func _ready() -> void:
 	for idx in range(0, num_players * skip, skip):
 		initiate_player(ALL_PLAYERS[idx], PLAYER_HOME_POSITIONS[idx])
 		
-	emit_signal("turn_changed", "Yellow")
+	emit_signal("turn_changed", "Blue")
+	
+func _dice_rolled(rolled: int) -> void:
+	pass

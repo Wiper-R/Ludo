@@ -8,6 +8,7 @@
 script = ExtResource( 1 )
 global_home_path_index = 26
 home_row_entry_point = 24
+texture = ExtResource( 3 )
 _color = "Green"
 
 [node name="Tokens" type="Node2D" parent="."]
@@ -16,25 +17,25 @@ _color = "Green"
 position = Vector2( -72, -96 )
 should_process = true
 
-[node name="Sprite" parent="Tokens/T1" index="0"]
+[node name="Sprite" parent="Tokens/T1" index="2"]
 texture = ExtResource( 3 )
 
 [node name="T2" parent="Tokens" instance=ExtResource( 2 )]
 position = Vector2( 72, -96 )
 
-[node name="Sprite" parent="Tokens/T2" index="0"]
+[node name="Sprite" parent="Tokens/T2" index="2"]
 texture = ExtResource( 3 )
 
 [node name="T3" parent="Tokens" instance=ExtResource( 2 )]
 position = Vector2( -72, 48 )
 
-[node name="Sprite" parent="Tokens/T3" index="0"]
+[node name="Sprite" parent="Tokens/T3" index="2"]
 texture = ExtResource( 3 )
 
 [node name="T4" parent="Tokens" instance=ExtResource( 2 )]
 position = Vector2( 72, 48 )
 
-[node name="Sprite" parent="Tokens/T4" index="0"]
+[node name="Sprite" parent="Tokens/T4" index="2"]
 texture = ExtResource( 3 )
 
 [editable path="Tokens/T1"]

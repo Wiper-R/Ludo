@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Players/Player.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Token/Token.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/Yellow_Token.png" type="Texture" id=3]
 
 [node name="Yellow" type="Node2D"]
 script = ExtResource( 1 )
 global_home_path_index = 39
 home_row_entry_point = 37
+texture = ExtResource( 3 )
 _color = "Yellow"
 
 [node name="Tokens" type="Node2D" parent="."]
