@@ -35,4 +35,4 @@ func _ready() -> void:
 	emit_signal("turn_changed", "Blue")
 	
 func _dice_rolled(rolled: int) -> void:
-	pass
+	emit_signal("turn_changed", "Blue")

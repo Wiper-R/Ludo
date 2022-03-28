@@ -10,22 +10,21 @@ func _ready() -> void:
 	
 func reset() -> void:
 	$Sprite.visible = false;
+	$AnimatedSprite.stop()
 	$AnimatedSprite.visible = false;
-	$Sprite.frame = 0;
 	
 	
 func roll() -> void:
 	ready_to_roll = false
 	var rolled = (rng.randi() % 6) + 1
-	$Sprite.set_deferred("visible", false)
-	$AnimatedSprite.set_deferred("visible", true)
+	$Sprite.visible = false
+	$AnimatedSprite.visible = true
 	$AnimatedSprite.play("roll")
 	yield($AnimatedSprite, "animation_finished")
 	$Sprite.frame = rolled
-	$Sprite.set_deferred("visible", true)
+	$Sprite.visible = true
 	$AnimatedSprite.frame = 0
-	$AnimatedSprite.stop()
-	$AnimatedSprite.set_deferred("visible", false);
+	$AnimatedSprite.visible = false
 	emit_signal("rolled", rolled)
 	
 func ready_to_roll() -> void:
