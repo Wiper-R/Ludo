@@ -50,4 +50,15 @@ func _on_Dice_rolled(rolled: int):
 	if !has_turn:
 		return
 		
+	var any: bool = false;
+	
+	for node in get_node("Tokens").get_children():
+		if node.can_move(rolled):
+			any = true;
+			
+	if not any:
+		dice_rolled = 0;
+		game.emit_signal("turn_changed", "Red")
+		return;
+	
 	dice_rolled = rolled;
