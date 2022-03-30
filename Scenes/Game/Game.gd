@@ -7,6 +7,7 @@ onready var players: Node2D = board.get_node("Players")
 
 # Signals
 signal turn_changed;
+signal dice_rolled;
 
 # All players that we have.
 const ALL_PLAYERS = ["Blue", "Red", "Green", "Yellow"]
@@ -35,4 +36,4 @@ func _ready() -> void:
 	emit_signal("turn_changed", "Blue")
 	
 func _dice_rolled(rolled: int) -> void:
-	emit_signal("turn_changed", "Blue")
+	emit_signal("dice_rolled", rolled)

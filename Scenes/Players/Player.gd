@@ -1,5 +1,4 @@
 extends Node2D
-
 class_name Player
 export (int) var global_home_path_index = -1;
 export (int) var home_row_entry_point = -1;
@@ -11,6 +10,7 @@ onready var home_path_curve: Curve2D = get_home_path_curve();
 var _color_initalized: bool = false;
 var color: String setget _set_color, _get_color;
 var has_turn: bool = false;
+var dice_rolled: int = 0;
 
 func _get_color() -> String:
 	assert(_color != null && typeof(_color) == TYPE_STRING, "ERROR: Player color must be set properly.");
@@ -35,15 +35,19 @@ func _ready() -> void:
 	assert (home_row_entry_point != -1, "ERROR: Home row entry path must be set in player node.");
 	assert (global_home_path_index != -1, "ERROR: Global home path index must be set in player node.");
 	game.connect("turn_changed", self, "_on_turn_changed");
+	game.connect("dice_rolled", self, "_on_Dice_rolled")
 	var tokens = $Tokens.get_children();
 	for token in tokens:
 		token.sprite.texture = texture
-	
-	
-	
 	
 func _on_turn_changed(turn_color: String) -> void:	
 	if _get_color() == turn_color:
 		has_turn = true;
 	else:
 		has_turn = false;
+		
+func _on_Dice_rolled(rolled: int):
+	if !has_turn:
+		return
+		
+	dice_rolled = rolled;

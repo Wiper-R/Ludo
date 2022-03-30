@@ -32,8 +32,19 @@ func is_in_base() -> bool:
 func _ready() -> void:
 	pass
 	
-func can_move() -> bool:
-	return true && !is_moving
+func can_move(point: int) -> bool:
+	if not point:
+		return false;
+		
+	if is_in_base():
+		if point == 6:
+			return true;
+		else:
+			return false;
+			
+	return false;
+		
+	
 	
 func switch_moveable_animation(switch: bool):
 	if $MoveableSprite.visible == switch:
@@ -81,9 +92,8 @@ func _move_to_start():
 	current_position_idx = player.global_home_path_index
 	is_moving = false
 
-func _process(_delta: float) -> void:
-	if !should_process:
-		return
+func _process(_delta: float) -> void:	
+	switch_moveable_animation(can_move(player.dice_rolled))
 	
 	if !has_turn() || is_moving:
 		return
@@ -94,7 +104,7 @@ func _process(_delta: float) -> void:
 		else:
 			move(4)
 			
-	switch_moveable_animation(can_move())
+	switch_moveable_animation(can_move(player.dice_rolled))
 
 
 func move(points: int) -> void:
