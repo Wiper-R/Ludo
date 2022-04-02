@@ -31,7 +31,7 @@ func is_in_base() -> bool:
 
 func _ready() -> void:
 	pass
-	
+		
 func can_move(point: int) -> bool:
 	if not point:
 		return false;
@@ -92,8 +92,12 @@ func _move_to_start():
 	current_position_idx = player.global_home_path_index
 	is_moving = false
 
-func _process(_delta: float) -> void:	
-	switch_moveable_animation(can_move(player.dice_rolled))
+func _process(_delta: float) -> void:
+	if !has_turn() || is_moving:
+		switch_moveable_animation(false)
+		return
+		
+	switch_moveable_animation(can_move(6))
 	
 	if !has_turn() || is_moving:
 		return
@@ -102,9 +106,9 @@ func _process(_delta: float) -> void:
 		if is_in_base():
 			_move_to_start()
 		else:
-			move(4)
+			move(6)
 			
-	switch_moveable_animation(can_move(player.dice_rolled))
+	switch_moveable_animation(can_move(6))
 
 
 func move(points: int) -> void:
@@ -161,4 +165,4 @@ func move(points: int) -> void:
 
 func _on_Area2D_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if (event is InputEventMouseButton && event.is_pressed()):
-		print("Clicked: ", player.color)
+		player.token_clicked(self)

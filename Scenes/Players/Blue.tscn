@@ -9,7 +9,6 @@ script = ExtResource( 1 )
 global_home_path_index = 0
 home_row_entry_point = 50
 texture = ExtResource( 3 )
-_color = "Blue"
 
 [node name="Tokens" type="Node2D" parent="."]
 

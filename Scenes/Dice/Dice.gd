@@ -1,7 +1,10 @@
 extends Node2D
 
+onready var game: Game = get_node("../../../../../")
+onready var dice_base = get_node("../")
 signal rolled;
-var ready_to_roll = false;
+var _ready_to_roll = false;
+var rolled = false;
 onready var rng = RandomNumberGenerator.new()
 
 func _ready() -> void:
@@ -15,7 +18,7 @@ func reset() -> void:
 	
 	
 func roll() -> void:
-	ready_to_roll = false
+	_ready_to_roll = false
 	var rolled = (rng.randi() % 6) + 1
 	$Sprite.visible = false
 	$AnimatedSprite.visible = true
@@ -26,12 +29,13 @@ func roll() -> void:
 	$AnimatedSprite.frame = 0
 	$AnimatedSprite.visible = false
 	emit_signal("rolled", rolled)
+	self.rolled = true;
 	
 func ready_to_roll() -> void:
-	ready_to_roll = true;
+	_ready_to_roll = true;
 	$Sprite.visible = true;
 
 
 func _on_Area2D_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if (event is InputEventMouseButton && event.is_pressed()) && ready_to_roll:
+	if (event is InputEventMouseButton && event.is_pressed()) && !rolled:
 		roll()

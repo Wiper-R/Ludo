@@ -39,11 +39,13 @@ script = SubResource( 2 )
 texture = ExtResource( 2 )
 
 [node name="Paths" type="Node2D" parent="."]
+visible = false
 
 [node name="CommonPath" type="Path2D" parent="Paths"]
 curve = SubResource( 1 )
 
 [node name="PlayerPaths" type="Node2D" parent="Paths"]
+visible = false
 
 [node name="RedHomePath" type="Path2D" parent="Paths/PlayerPaths"]
 curve = SubResource( 3 )

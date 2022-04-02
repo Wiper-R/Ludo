@@ -1,15 +1,13 @@
 extends Node2D
 
-onready var game: Game = get_node("../../../");
-onready var dice = get_node("Dice");
+onready var player: Player = get_node("../");
+onready var game: Game = get_node("../../../../");
 
 func _ready() -> void:
-	game.connect("turn_changed", self, "_handle_turn_changed")
-	dice.connect("rolled", game, "_dice_rolled")
-
-
-func _handle_turn_changed(color: String) -> void:
-	if name != color:
-		$Dice.reset()
-	else:
+	game.connect("turn_changed", self, "_on_turn_changed")
+	
+func _on_turn_changed(color: String) -> void:
+	if color == player.name:
 		$Dice.ready_to_roll()
+	else:
+		$Dice.reset()
