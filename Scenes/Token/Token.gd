@@ -19,7 +19,9 @@ var current_position_idx: int = -1
 var is_moving: bool = false;
 var is_in_home_row = false;
 var is_in_home = false;
-	
+
+
+signal token_clicked(token);
 
 func has_turn() -> bool:
 	return player.has_turn
@@ -30,7 +32,7 @@ func is_in_base() -> bool:
 
 
 func _ready() -> void:
-	pass
+	switch_moveable_animation(false)
 		
 func can_move(point: int) -> bool:
 	if not point:
@@ -94,21 +96,14 @@ func _move_to_start():
 
 func _process(_delta: float) -> void:
 	if !has_turn() || is_moving:
-		switch_moveable_animation(false)
 		return
-		
-	switch_moveable_animation(can_move(6))
-	
-	if !has_turn() || is_moving:
-		return
-		
+
+
 	if Input.is_action_just_pressed("ui_up"):
 		if is_in_base():
 			_move_to_start()
 		else:
 			move(6)
-			
-	switch_moveable_animation(can_move(6))
 
 
 func move(points: int) -> void:
