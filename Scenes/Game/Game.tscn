@@ -1,19 +1,90 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/board.png" type="Texture" id=1]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 468, 1395, 0, 0, 0, 0, 468, 1323, 0, 0, 0, 0, 468, 1251, 0, 0, 0, 0, 468, 1179, 0, 0, 0, 0, 468, 1107, 0, 0, 0, 0, 396, 1035, 0, 0, 0, 0, 324, 1035, 0, 0, 0, 0, 252, 1035, 0, 0, 0, 0, 180, 1035, 0, 0, 0, 0, 108, 1035, 0, 0, 0, 0, 36, 1035, 0, 0, 0, 0, 36, 963, 0, 0, 0, 0, 36, 891, 0, 0, 0, 0, 108, 891, 0, 0, 0, 0, 180, 891, 0, 0, 0, 0, 252, 891, 0, 0, 0, 0, 324, 891, 0, 0, 0, 0, 396, 891, 0, 0, 0, 0, 468, 819, 0, 0, 0, 0, 468, 747, 0, 0, 0, 0, 468, 675, 0, 0, 0, 0, 468, 603, 0, 0, 0, 0, 468, 531, 0, 0, 0, 0, 468, 459, 0, 0, 0, 0, 540, 459, 0, 0, 0, 0, 612, 459, 0, 0, 0, 0, 612, 531, 0, 0, 0, 0, 612, 603, 0, 0, 0, 0, 612, 603, 0, 0, 0, 0, 612, 675, 0, 0, 0, 0, 612, 747, 0, 0, 0, 0, 612, 819, 0, 0, 0, 0, 684, 891, 0, 0, 0, 0, 756, 891, 0, 0, 0, 0, 828, 891, 0, 0, 0, 0, 900, 891, 0, 0, 0, 0, 972, 891, 0, 0, 0, 0, 1044, 891, 0, 0, 0, 0, 1044, 963, 0, 0, 0, 0, 1044, 1035, 0, 0, 0, 0, 972, 1035, 0, 0, 0, 0, 900, 1035, 0, 0, 0, 0, 828, 1035, 0, 0, 0, 0, 756, 1035, 0, 0, 0, 0, 684, 1035, 0, 0, 0, 0, 612, 1107, 0, 0, 0, 0, 612, 1179, 0, 0, 0, 0, 612, 1251, 0, 0, 0, 0, 612, 1323, 0, 0, 0, 0, 612, 1395, 0, 0, 0, 0, 612, 1467, 0, 0, 0, 0, 540, 1467, 0, 0, 0, 0, 468, 1467 )
+"points": PoolVector2Array( 0, 0, 0, 0, 468, 1392, 0, 0, 0, 0, 468, 1320, 0, 0, 0, 0, 468, 1248, 0, 0, 0, 0, 468, 1176, 0, 0, 0, 0, 468, 1104, 0, 0, 0, 0, 396, 1032, 0, 0, 0, 0, 324, 1032, 0, 0, 0, 0, 252, 1032, 0, 0, 0, 0, 180, 1032, 0, 0, 0, 0, 108, 1032, 0, 0, 0, 0, 36, 1032, 0, 0, 0, 0, 36, 960, 0, 0, 0, 0, 36, 888, 0, 0, 0, 0, 108, 888, 0, 0, 0, 0, 180, 888, 0, 0, 0, 0, 252, 888, 0, 0, 0, 0, 324, 888, 0, 0, 0, 0, 396, 888, 0, 0, 0, 0, 468, 816, 0, 0, 0, 0, 468, 744, 0, 0, 0, 0, 468, 672, 0, 0, 0, 0, 468, 600, 0, 0, 0, 0, 468, 528, 0, 0, 0, 0, 468, 456, 0, 0, 0, 0, 540, 456, 0, 0, 0, 0, 612, 456, 0, 0, 0, 0, 612, 528, 0, 0, 0, 0, 612, 600, 0, 0, 0, 0, 612, 672, 0, 0, 0, 0, 612, 744, 0, 0, 0, 0, 612, 816, 0, 0, 0, 0, 612, 816, 0, 0, 0, 0, 684, 888, 0, 0, 0, 0, 756, 888, 0, 0, 0, 0, 828, 888, 0, 0, 0, 0, 900, 888, 0, 0, 0, 0, 972, 888, 0, 0, 0, 0, 1044, 888, 0, 0, 0, 0, 1044, 960, 0, 0, 0, 0, 1044, 1032, 0, 0, 0, 0, 972, 1032, 0, 0, 0, 0, 900, 1032, 0, 0, 0, 0, 828, 1032, 0, 0, 0, 0, 756, 1032, 0, 0, 0, 0, 684, 1032, 0, 0, 0, 0, 612, 1104, 0, 0, 0, 0, 612, 1176, 0, 0, 0, 0, 612, 1248, 0, 0, 0, 0, 612, 1320, 0, 0, 0, 0, 612, 1392, 0, 0, 0, 0, 612, 1464, 0, 0, 0, 0, 540, 1464, 0, 0, 0, 0, 468, 1464 )
+}
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 36, 960, 0, 0, 0, 0, 108, 960, 0, 0, 0, 0, 180, 960, 0, 0, 0, 0, 252, 960, 0, 0, 0, 0, 324, 960, 0, 0, 0, 0, 396, 960, 0, 0, 0, 0, 486, 960 )
+}
+
+[sub_resource type="Curve2D" id=3]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 540, 1464, 0, 0, 0, 0, 540, 1392, 0, 0, 0, 0, 540, 1320, 0, 0, 0, 0, 540, 1248, 0, 0, 0, 0, 540, 1176, 0, 0, 0, 0, 540, 1104, 0, 0, 0, 0, 540, 1014 )
+}
+
+[sub_resource type="Curve2D" id=4]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 1044, 960, 0, 0, 0, 0, 972, 960, 0, 0, 0, 0, 900, 960, 0, 0, 0, 0, 828, 960, 0, 0, 0, 0, 756, 960, 0, 0, 0, 0, 684, 960, 0, 0, 0, 0, 594, 960 )
+}
+
+[sub_resource type="Curve2D" id=5]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 540, 456, 0, 0, 0, 0, 540, 528, 0, 0, 0, 0, 540, 600, 0, 0, 0, 0, 540, 672, 0, 0, 0, 0, 540, 744, 0, 0, 0, 0, 540, 816, 0, 0, 0, 0, 540, 906 )
 }
 
 [node name="Game" type="Node2D"]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Board" type="Sprite" parent="."]
 position = Vector2( 540, 960 )
 texture = ExtResource( 1 )
 
+[node name="Path2D" type="Path2D" parent="."]
+self_modulate = Color( 0.980392, 0, 0.917647, 0.701961 )
+curve = SubResource( 1 )
+
+[node name="Red" type="Node2D" parent="."]
+
+[node name="Path2D" type="Path2D" parent="Red"]
+self_modulate = Color( 0, 0, 0, 1 )
+curve = SubResource( 2 )
+
+[node name="Tokens" type="Node2D" parent="Red"]
+
+[node name="T1" type="Sprite" parent="Red/Tokens"]
+
 [node name="Blue" type="Node2D" parent="."]
 
-[node name="Path2D" type="Path2D" parent="."]
-curve = SubResource( 1 )
+[node name="Path2D" type="Path2D" parent="Blue"]
+self_modulate = Color( 0, 0, 0, 0.701961 )
+curve = SubResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Tokens" type="Node2D" parent="Blue"]
+
+[node name="T1" type="Sprite" parent="Blue/Tokens"]
+
+[node name="Yellow" type="Node2D" parent="."]
+
+[node name="Path2D" type="Path2D" parent="Yellow"]
+self_modulate = Color( 0, 0, 0, 0.701961 )
+curve = SubResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Tokens" type="Node2D" parent="Yellow"]
+
+[node name="T1" type="Sprite" parent="Yellow/Tokens"]
+
+[node name="Green" type="Node2D" parent="."]
+
+[node name="Path2D" type="Path2D" parent="Green"]
+self_modulate = Color( 0, 0, 0, 0.701961 )
+curve = SubResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Tokens" type="Node2D" parent="Green"]
+
+[node name="T1" type="Sprite" parent="Green/Tokens"]
