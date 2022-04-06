@@ -37,12 +37,14 @@ position = Vector2( 540, 960 )
 texture = ExtResource( 1 )
 
 [node name="Path2D" type="Path2D" parent="."]
+visible = false
 self_modulate = Color( 0.980392, 0, 0.917647, 0.701961 )
 curve = SubResource( 1 )
 
 [node name="Red" type="Node2D" parent="."]
 
 [node name="Path2D" type="Path2D" parent="Red"]
+visible = false
 self_modulate = Color( 0, 0, 0, 1 )
 curve = SubResource( 2 )
 
@@ -53,6 +55,7 @@ curve = SubResource( 2 )
 [node name="Blue" type="Node2D" parent="."]
 
 [node name="Path2D" type="Path2D" parent="Blue"]
+visible = false
 self_modulate = Color( 0, 0, 0, 0.701961 )
 curve = SubResource( 3 )
 __meta__ = {
@@ -66,6 +69,7 @@ __meta__ = {
 [node name="Yellow" type="Node2D" parent="."]
 
 [node name="Path2D" type="Path2D" parent="Yellow"]
+visible = false
 self_modulate = Color( 0, 0, 0, 0.701961 )
 curve = SubResource( 4 )
 __meta__ = {
@@ -79,6 +83,7 @@ __meta__ = {
 [node name="Green" type="Node2D" parent="."]
 
 [node name="Path2D" type="Path2D" parent="Green"]
+visible = false
 self_modulate = Color( 0, 0, 0, 0.701961 )
 curve = SubResource( 5 )
 __meta__ = {
