@@ -48,11 +48,23 @@ visible = false
 self_modulate = Color( 0, 0, 0, 1 )
 curve = SubResource( 2 )
 
+[node name="Home" type="Position2D" parent="Red"]
+position = Vector2( 108, 888 )
+__meta__ = {
+"_gizmo_extents_": 0.0
+}
+
 [node name="Tokens" type="Node2D" parent="Red"]
 
 [node name="T1" type="Sprite" parent="Red/Tokens"]
 
 [node name="Blue" type="Node2D" parent="."]
+
+[node name="Home" type="Position2D" parent="Blue"]
+position = Vector2( 468, 1392 )
+__meta__ = {
+"_gizmo_extents_": 0.0
+}
 
 [node name="Path2D" type="Path2D" parent="Blue"]
 visible = false
@@ -68,6 +80,12 @@ __meta__ = {
 
 [node name="Yellow" type="Node2D" parent="."]
 
+[node name="Home" type="Position2D" parent="Yellow"]
+position = Vector2( 972, 1032 )
+__meta__ = {
+"_gizmo_extents_": 0.0
+}
+
 [node name="Path2D" type="Path2D" parent="Yellow"]
 visible = false
 self_modulate = Color( 0, 0, 0, 0.701961 )
@@ -81,6 +99,12 @@ __meta__ = {
 [node name="T1" type="Sprite" parent="Yellow/Tokens"]
 
 [node name="Green" type="Node2D" parent="."]
+
+[node name="Home" type="Position2D" parent="Green"]
+position = Vector2( 612, 528 )
+__meta__ = {
+"_gizmo_extents_": 0.0
+}
 
 [node name="Path2D" type="Path2D" parent="Green"]
 visible = false
