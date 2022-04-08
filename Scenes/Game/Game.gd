@@ -6,6 +6,8 @@ const ALL_PLAYERS = ["Blue", "Red", "Green", "Yellow"];
 var current_players = [];
 var turn_idx = -1;
 
+class_name Game
+
 func _assign_players(num: int) -> void:
 	assert (num > 1, "ERROR: Ludo requires atleast 2 players.")
 	
@@ -45,3 +47,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_up") and !dice.is_rolling():
 		switch_turn()
+
+func dice_rolled(rolled: int) -> void:
+	print("Dice rolled: %s" % rolled)
