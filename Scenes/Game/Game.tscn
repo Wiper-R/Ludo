@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/board.png" type="Texture" id=1]
 [ext_resource path="res://assets/red-token.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/yellow-token.png" type="Texture" id=4]
 [ext_resource path="res://assets/green-token.png" type="Texture" id=5]
 [ext_resource path="res://assets/dice-base.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/Dice/Dice.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -272,3 +273,6 @@ position = Vector2( 955, 357 )
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 6 )
 flip_h = true
+
+[node name="Dice" parent="." instance=ExtResource( 7 )]
+position = Vector2( 162, 357 )
