@@ -27,10 +27,12 @@ func switch_turn() -> void:
 
 	for player in players.get_children():
 		player.has_turn = false;
-		
+	
+	
 	var player: Player = players.get_node(current_players[turn_idx]);
 	player.has_turn = true;
 	var dice_position = player.get_node("DicePosition")
+	dice.reset()
 	dice.position = dice_position.position;
 	dice.unblock()
 
@@ -41,5 +43,5 @@ func _ready() -> void:
 	
 	
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_up"):
+	if Input.is_action_just_pressed("ui_up") and !dice.is_rolling():
 		switch_turn()
