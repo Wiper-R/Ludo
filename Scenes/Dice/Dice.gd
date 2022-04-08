@@ -18,7 +18,12 @@ func done_rolling() -> void:
 	
 
 # TODO: Receive a move signal and reset the dice
+
+func block() -> void:
+	$Area2D/CollisionShape2D.disabled = true
 	
+func unblock() -> void:
+	$Area2D/CollisionShape2D.disabled = false
 	
 func roll() -> void:
 	animation_player.play("roll")
