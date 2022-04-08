@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/board.png" type="Texture" id=1]
 [ext_resource path="res://assets/red-token.png" type="Texture" id=2]
@@ -8,20 +8,21 @@
 [ext_resource path="res://assets/dice-base.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/Dice/Dice.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Game/Game.gd" type="Script" id=8]
+[ext_resource path="res://Scenes/Game/Player.gd" type="Script" id=9]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 468, 1392, 0, 0, 0, 0, 468, 1320, 0, 0, 0, 0, 468, 1248, 0, 0, 0, 0, 468, 1176, 0, 0, 0, 0, 468, 1104, 0, 0, 0, 0, 396, 1032, 0, 0, 0, 0, 324, 1032, 0, 0, 0, 0, 252, 1032, 0, 0, 0, 0, 180, 1032, 0, 0, 0, 0, 108, 1032, 0, 0, 0, 0, 36, 1032, 0, 0, 0, 0, 36, 960, 0, 0, 0, 0, 36, 888, 0, 0, 0, 0, 108, 888, 0, 0, 0, 0, 180, 888, 0, 0, 0, 0, 252, 888, 0, 0, 0, 0, 324, 888, 0, 0, 0, 0, 396, 888, 0, 0, 0, 0, 468, 816, 0, 0, 0, 0, 468, 744, 0, 0, 0, 0, 468, 672, 0, 0, 0, 0, 468, 600, 0, 0, 0, 0, 468, 528, 0, 0, 0, 0, 468, 456, 0, 0, 0, 0, 540, 456, 0, 0, 0, 0, 612, 456, 0, 0, 0, 0, 612, 528, 0, 0, 0, 0, 612, 600, 0, 0, 0, 0, 612, 672, 0, 0, 0, 0, 612, 744, 0, 0, 0, 0, 612, 816, 0, 0, 0, 0, 612, 816, 0, 0, 0, 0, 684, 888, 0, 0, 0, 0, 756, 888, 0, 0, 0, 0, 828, 888, 0, 0, 0, 0, 900, 888, 0, 0, 0, 0, 972, 888, 0, 0, 0, 0, 1044, 888, 0, 0, 0, 0, 1044, 960, 0, 0, 0, 0, 1044, 1032, 0, 0, 0, 0, 972, 1032, 0, 0, 0, 0, 900, 1032, 0, 0, 0, 0, 828, 1032, 0, 0, 0, 0, 756, 1032, 0, 0, 0, 0, 684, 1032, 0, 0, 0, 0, 612, 1104, 0, 0, 0, 0, 612, 1176, 0, 0, 0, 0, 612, 1248, 0, 0, 0, 0, 612, 1320, 0, 0, 0, 0, 612, 1392, 0, 0, 0, 0, 612, 1464, 0, 0, 0, 0, 540, 1464, 0, 0, 0, 0, 468, 1464 )
 }
 
-[sub_resource type="Curve2D" id=2]
-_data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 36, 960, 0, 0, 0, 0, 108, 960, 0, 0, 0, 0, 180, 960, 0, 0, 0, 0, 252, 960, 0, 0, 0, 0, 324, 960, 0, 0, 0, 0, 396, 960, 0, 0, 0, 0, 486, 960 )
-}
-
 [sub_resource type="Curve2D" id=3]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 540, 1464, 0, 0, 0, 0, 540, 1392, 0, 0, 0, 0, 540, 1320, 0, 0, 0, 0, 540, 1248, 0, 0, 0, 0, 540, 1176, 0, 0, 0, 0, 540, 1104, 0, 0, 0, 0, 540, 1014 )
+}
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 36, 960, 0, 0, 0, 0, 108, 960, 0, 0, 0, 0, 180, 960, 0, 0, 0, 0, 252, 960, 0, 0, 0, 0, 324, 960, 0, 0, 0, 0, 396, 960, 0, 0, 0, 0, 486, 960 )
 }
 
 [sub_resource type="Curve2D" id=4]
@@ -51,64 +52,8 @@ curve = SubResource( 1 )
 
 [node name="Players" type="Node2D" parent="."]
 
-[node name="Red" type="Node2D" parent="Players"]
-
-[node name="Path2D" type="Path2D" parent="Players/Red"]
-visible = false
-self_modulate = Color( 0, 0, 0, 1 )
-curve = SubResource( 2 )
-
-[node name="Home" type="Position2D" parent="Players/Red"]
-position = Vector2( 108, 888 )
-__meta__ = {
-"_gizmo_extents_": 0.0
-}
-
-[node name="BasePositions" type="Node2D" parent="Players/Red"]
-
-[node name="T1" type="Position2D" parent="Players/Red/BasePositions"]
-position = Vector2( 143, 564 )
-
-[node name="T2" type="Position2D" parent="Players/Red/BasePositions"]
-position = Vector2( 290, 564 )
-
-[node name="T3" type="Position2D" parent="Players/Red/BasePositions"]
-position = Vector2( 143, 708 )
-
-[node name="T4" type="Position2D" parent="Players/Red/BasePositions"]
-position = Vector2( 290, 708 )
-
-[node name="Tokens" type="Node2D" parent="Players/Red"]
-
-[node name="T1" type="Sprite" parent="Players/Red/Tokens"]
-position = Vector2( 143, 564 )
-texture = ExtResource( 2 )
-offset = Vector2( 4, -30 )
-
-[node name="T2" type="Sprite" parent="Players/Red/Tokens"]
-position = Vector2( 290, 564 )
-texture = ExtResource( 2 )
-offset = Vector2( 4, -30 )
-
-[node name="T3" type="Sprite" parent="Players/Red/Tokens"]
-position = Vector2( 143, 708 )
-texture = ExtResource( 2 )
-offset = Vector2( 4, -30 )
-
-[node name="T4" type="Sprite" parent="Players/Red/Tokens"]
-position = Vector2( 290, 708 )
-texture = ExtResource( 2 )
-offset = Vector2( 4, -30 )
-
-[node name="DiceBase" type="Sprite" parent="Players/Red"]
-position = Vector2( 125, 357 )
-scale = Vector2( 0.3, 0.3 )
-texture = ExtResource( 6 )
-
-[node name="DicePosition" type="Position2D" parent="Players/Red"]
-position = Vector2( 158, 357 )
-
 [node name="Blue" type="Node2D" parent="Players"]
+script = ExtResource( 9 )
 
 [node name="Home" type="Position2D" parent="Players/Blue"]
 position = Vector2( 468, 1392 )
@@ -168,7 +113,66 @@ texture = ExtResource( 6 )
 [node name="DicePosition" type="Position2D" parent="Players/Blue"]
 position = Vector2( 158, 1563 )
 
+[node name="Red" type="Node2D" parent="Players"]
+script = ExtResource( 9 )
+
+[node name="Path2D" type="Path2D" parent="Players/Red"]
+visible = false
+self_modulate = Color( 0, 0, 0, 1 )
+curve = SubResource( 2 )
+
+[node name="Home" type="Position2D" parent="Players/Red"]
+position = Vector2( 108, 888 )
+__meta__ = {
+"_gizmo_extents_": 0.0
+}
+
+[node name="BasePositions" type="Node2D" parent="Players/Red"]
+
+[node name="T1" type="Position2D" parent="Players/Red/BasePositions"]
+position = Vector2( 143, 564 )
+
+[node name="T2" type="Position2D" parent="Players/Red/BasePositions"]
+position = Vector2( 290, 564 )
+
+[node name="T3" type="Position2D" parent="Players/Red/BasePositions"]
+position = Vector2( 143, 708 )
+
+[node name="T4" type="Position2D" parent="Players/Red/BasePositions"]
+position = Vector2( 290, 708 )
+
+[node name="Tokens" type="Node2D" parent="Players/Red"]
+
+[node name="T1" type="Sprite" parent="Players/Red/Tokens"]
+position = Vector2( 143, 564 )
+texture = ExtResource( 2 )
+offset = Vector2( 4, -30 )
+
+[node name="T2" type="Sprite" parent="Players/Red/Tokens"]
+position = Vector2( 290, 564 )
+texture = ExtResource( 2 )
+offset = Vector2( 4, -30 )
+
+[node name="T3" type="Sprite" parent="Players/Red/Tokens"]
+position = Vector2( 143, 708 )
+texture = ExtResource( 2 )
+offset = Vector2( 4, -30 )
+
+[node name="T4" type="Sprite" parent="Players/Red/Tokens"]
+position = Vector2( 290, 708 )
+texture = ExtResource( 2 )
+offset = Vector2( 4, -30 )
+
+[node name="DiceBase" type="Sprite" parent="Players/Red"]
+position = Vector2( 125, 357 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 6 )
+
+[node name="DicePosition" type="Position2D" parent="Players/Red"]
+position = Vector2( 158, 357 )
+
 [node name="Yellow" type="Node2D" parent="Players"]
+script = ExtResource( 9 )
 
 [node name="Home" type="Position2D" parent="Players/Yellow"]
 position = Vector2( 972, 1032 )
@@ -230,6 +234,7 @@ flip_h = true
 position = Vector2( 923, 1563 )
 
 [node name="Green" type="Node2D" parent="Players"]
+script = ExtResource( 9 )
 
 [node name="Home" type="Position2D" parent="Players/Green"]
 position = Vector2( 612, 528 )
@@ -291,5 +296,4 @@ flip_h = true
 position = Vector2( 923, 357 )
 
 [node name="Dice" parent="." instance=ExtResource( 7 )]
-position = Vector2( 162, 357 )
 z_index = 1
