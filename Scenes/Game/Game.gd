@@ -1,5 +1,6 @@
 extends Node2D
 onready var players = get_node("Players");
+onready var dice = get_node("Dice");
 const MAX_PLAYERS = 4.0;
 const ALL_PLAYERS = ["Blue", "Red", "Green", "Yellow"];
 var current_players = [];
@@ -27,12 +28,17 @@ func switch_turn() -> void:
 	for player in players.get_children():
 		player.has_turn = false;
 		
-	players.get_node(current_players[turn_idx]).has_turn = true;
+	var player: Player = players.get_node(current_players[turn_idx]);
+	player.has_turn = true;
+	var dice_position = player.get_node("DicePosition")
+	dice.position = dice_position.position;
+	dice.unblock()
 
 func _ready() -> void:
-	$Dice.block()
+	dice.block()
 	_assign_players(2)
 	switch_turn()
+	
 	
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_up"):

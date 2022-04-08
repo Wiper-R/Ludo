@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Player
+
 var has_turn: bool = false;
 
 func _ready() -> void:
