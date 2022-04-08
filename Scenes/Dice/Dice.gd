@@ -3,6 +3,8 @@ onready var sprite: Sprite = get_node("Sprite");
 onready var animated_dice: Sprite = get_node("AnimatedDice");
 onready var animation_player: AnimationPlayer = animated_dice.get_node("AnimationPlayer");
 onready var rng = RandomNumberGenerator.new()
+onready var area2d = get_node("Area2D");
+onready var area2d_collision = get_node("Area2D/CollisionShape2D");
 # Declare member variables here. Examples:
 # var a: int = 2
 # var b: String = "text"
@@ -20,10 +22,10 @@ func done_rolling() -> void:
 # TODO: Receive a move signal and reset the dice
 
 func block() -> void:
-	$Area2D/CollisionShape2D.disabled = true
+	area2d_collision.disabled = true
 	
 func unblock() -> void:
-	$Area2D/CollisionShape2D.disabled = false
+	area2d_collision.disabled = false
 	
 func roll() -> void:
 	animation_player.play("roll")
@@ -31,6 +33,10 @@ func roll() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Connect Area2d input
+	area2d.connect("input_event", self, "_on_Area2D_input_event")
+	
+	# randomize
 	rng.randomize()
 	
 	# Reset Variables
