@@ -7,16 +7,13 @@ class_name Player
 
 var has_turn: bool = false
 
-
 func _ready() -> void:
 	assert(
 		token_scene != null, "ERROR: Couldn't load {name} Token resource.".format({"name": name})
 	)
 
-
 func _process(_delta: float) -> void:
 	pass
-
 
 func initialize():
 	var tokens = Node2D.new()
@@ -24,8 +21,13 @@ func initialize():
 
 	for idx in range(1, 5):
 		var token = token_scene.instance()
+		token.name = "T%s" % idx;
 		token.position = get_node("BasePositions/T%s" % idx).position;
 		token.get_node("Sprite").texture = sprite;
 		tokens.add_child(token)
 
 	add_child(tokens)
+
+
+func _on_token_clicked(token):
+	print("{0} {1}".format([name, token]))
