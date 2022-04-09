@@ -16,7 +16,7 @@ func _ready() -> void:
 func _token_clicked():
 	emit_signal("token_clicked", self)
 
-func _on_Area2D_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_Area2D_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if not event is InputEventMouseButton:
 		return
 		
