@@ -59,6 +59,8 @@ func can_any_token_move(rolled:int) -> Array:
 	for token in tokens:
 		if token.can_move(rolled, game):
 			tokens_can_move.push_back(token)
+			token.set_rolling_animation(true);
+			
 	return tokens_can_move
 
 
@@ -69,12 +71,17 @@ func handle_move(rolled: int):
 		token = yield(self, "token_clicked_for_move")
 		if token in tokens_can_move:
 			break;
-			
+				
+	for t in tokens:
+		t.set_rolling_animation(false);
+		
 	print("Token Clicked %s" % token);
 	print("Moving...")
+		
 	token.run_move(rolled)
 	
-	var has_more_turn = yield(self, "token_done_moving");	
+	var has_more_turn = yield(self, "token_done_moving");
+	
 	if has_more_turn:
 		game.get_node("Dice").reset()
 	else:
