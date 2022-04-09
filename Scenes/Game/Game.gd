@@ -42,9 +42,10 @@ func _ready() -> void:
 	dice.block()
 	_assign_players(2)
 	switch_turn()
+	dice.visible = true;
 	
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_up") and !dice.is_rolling():
 		switch_turn()
 

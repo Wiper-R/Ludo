@@ -6,6 +6,7 @@ onready var animation_player: AnimationPlayer = animated_dice.get_node("Animatio
 onready var rng = RandomNumberGenerator.new()
 onready var area2d = get_node("Area2D");
 onready var area2d_collision = get_node("Area2D/CollisionShape2D");
+onready var audio_stream: AudioStreamPlayer = get_node("AudioStreamPlayer")
 var rolled = false;
 # Declare member variables here. Examples:
 # var a: int = 2
@@ -32,11 +33,14 @@ func unblock() -> void:
 	
 func roll() -> void:
 	rolled = true;
+	audio_stream.play()
 	animation_player.play("roll")
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	visible = false;
+	
 	# Connect Area2d input
 	area2d.connect("input_event", self, "_on_Area2D_input_event")
 	
