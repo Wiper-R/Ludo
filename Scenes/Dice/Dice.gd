@@ -66,6 +66,9 @@ func _on_Area2D_input_event(_viewport: Node, event: InputEvent, _shape_idx: int)
 		
 	if !event.pressed:
 		return
+		
+	if event.button_index != BUTTON_LEFT:
+		return
 
 	if rolled:
 		return

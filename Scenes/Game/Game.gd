@@ -16,9 +16,12 @@ func _assign_players(num: int) -> void:
 	for pidx in range(0, num * skip, skip):
 		current_players.push_back(ALL_PLAYERS[pidx])
 
-	for player in ALL_PLAYERS:
-		if not player in current_players:
-			get_node("Players/%s" % player).queue_free()
+	for pname in ALL_PLAYERS:
+		var player: Player = get_node("Players/%s" % pname);
+		if not pname in current_players:
+			player.queue_free()
+		else:
+			player.initialize()
 
 
 func switch_turn() -> void:

@@ -1,15 +1,10 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/board.png" type="Texture" id=1]
-[ext_resource path="res://assets/red-token.png" type="Texture" id=2]
-[ext_resource path="res://assets/blue-token.png" type="Texture" id=3]
-[ext_resource path="res://assets/yellow-token.png" type="Texture" id=4]
-[ext_resource path="res://assets/green-token.png" type="Texture" id=5]
 [ext_resource path="res://assets/dice-base.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/Dice/Dice.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Game/Game.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/Game/Player.gd" type="Script" id=9]
-[ext_resource path="res://Scenes/Game/Token.gd" type="Script" id=10]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -84,32 +79,6 @@ position = Vector2( 143, 1356 )
 [node name="T4" type="Position2D" parent="Players/Blue/BasePositions"]
 position = Vector2( 289, 1356 )
 
-[node name="Tokens" type="Node2D" parent="Players/Blue"]
-
-[node name="T1" type="Sprite" parent="Players/Blue/Tokens"]
-position = Vector2( 144, 1212 )
-texture = ExtResource( 3 )
-offset = Vector2( 4, -30 )
-script = ExtResource( 10 )
-
-[node name="T2" type="Sprite" parent="Players/Blue/Tokens"]
-position = Vector2( 289, 1212 )
-texture = ExtResource( 3 )
-offset = Vector2( 4, -30 )
-script = ExtResource( 10 )
-
-[node name="T3" type="Sprite" parent="Players/Blue/Tokens"]
-position = Vector2( 143, 1356 )
-texture = ExtResource( 3 )
-offset = Vector2( 4, -30 )
-script = ExtResource( 10 )
-
-[node name="T4" type="Sprite" parent="Players/Blue/Tokens"]
-position = Vector2( 289, 1356 )
-texture = ExtResource( 3 )
-offset = Vector2( 4, -30 )
-script = ExtResource( 10 )
-
 [node name="DiceBase" type="Sprite" parent="Players/Blue"]
 position = Vector2( 125, 1563 )
 scale = Vector2( 0.3, 0.3 )
@@ -145,32 +114,6 @@ position = Vector2( 143, 708 )
 
 [node name="T4" type="Position2D" parent="Players/Red/BasePositions"]
 position = Vector2( 290, 708 )
-
-[node name="Tokens" type="Node2D" parent="Players/Red"]
-
-[node name="T1" type="Sprite" parent="Players/Red/Tokens"]
-position = Vector2( 143, 564 )
-texture = ExtResource( 2 )
-offset = Vector2( 4, -30 )
-script = ExtResource( 10 )
-
-[node name="T2" type="Sprite" parent="Players/Red/Tokens"]
-position = Vector2( 290, 564 )
-texture = ExtResource( 2 )
-offset = Vector2( 4, -30 )
-script = ExtResource( 10 )
-
-[node name="T3" type="Sprite" parent="Players/Red/Tokens"]
-position = Vector2( 143, 708 )
-texture = ExtResource( 2 )
-offset = Vector2( 4, -30 )
-script = ExtResource( 10 )
-
-[node name="T4" type="Sprite" parent="Players/Red/Tokens"]
-position = Vector2( 290, 708 )
-texture = ExtResource( 2 )
-offset = Vector2( 4, -30 )
-script = ExtResource( 10 )
 
 [node name="DiceBase" type="Sprite" parent="Players/Red"]
 position = Vector2( 125, 357 )
@@ -211,32 +154,6 @@ position = Vector2( 791, 1356 )
 [node name="T4" type="Position2D" parent="Players/Yellow/BasePositions"]
 position = Vector2( 935, 1356 )
 
-[node name="Tokens" type="Node2D" parent="Players/Yellow"]
-
-[node name="T1" type="Sprite" parent="Players/Yellow/Tokens"]
-position = Vector2( 791, 1212 )
-texture = ExtResource( 4 )
-offset = Vector2( 4, -30 )
-script = ExtResource( 10 )
-
-[node name="T2" type="Sprite" parent="Players/Yellow/Tokens"]
-position = Vector2( 935, 1212 )
-texture = ExtResource( 4 )
-offset = Vector2( 4, -30 )
-script = ExtResource( 10 )
-
-[node name="T3" type="Sprite" parent="Players/Yellow/Tokens"]
-position = Vector2( 791, 1356 )
-texture = ExtResource( 4 )
-offset = Vector2( 4, -30 )
-script = ExtResource( 10 )
-
-[node name="T4" type="Sprite" parent="Players/Yellow/Tokens"]
-position = Vector2( 935, 1356 )
-texture = ExtResource( 4 )
-offset = Vector2( 4, -30 )
-script = ExtResource( 10 )
-
 [node name="DiceBase" type="Sprite" parent="Players/Yellow"]
 position = Vector2( 955, 1563 )
 scale = Vector2( 0.3, 0.3 )
@@ -276,32 +193,6 @@ position = Vector2( 792, 708 )
 
 [node name="T4" type="Position2D" parent="Players/Green/BasePositions"]
 position = Vector2( 935, 708 )
-
-[node name="Tokens" type="Node2D" parent="Players/Green"]
-
-[node name="T1" type="Sprite" parent="Players/Green/Tokens"]
-position = Vector2( 792, 564 )
-texture = ExtResource( 5 )
-offset = Vector2( 4, -30 )
-script = ExtResource( 10 )
-
-[node name="T2" type="Sprite" parent="Players/Green/Tokens"]
-position = Vector2( 935, 564 )
-texture = ExtResource( 5 )
-offset = Vector2( 4, -30 )
-script = ExtResource( 10 )
-
-[node name="T3" type="Sprite" parent="Players/Green/Tokens"]
-position = Vector2( 792, 708 )
-texture = ExtResource( 5 )
-offset = Vector2( 4, -30 )
-script = ExtResource( 10 )
-
-[node name="T4" type="Sprite" parent="Players/Green/Tokens"]
-position = Vector2( 935, 708 )
-texture = ExtResource( 5 )
-offset = Vector2( 4, -30 )
-script = ExtResource( 10 )
 
 [node name="DiceBase" type="Sprite" parent="Players/Green"]
 position = Vector2( 955, 357 )
