@@ -17,6 +17,7 @@ func is_rolling() -> bool:
 
 func done_rolling() -> void:
 	var rolled = rng.randi_range(1, 6)
+	rolled = 6
 	sprite.frame = rolled;
 	
 	# Emit Signal Here

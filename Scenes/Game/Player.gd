@@ -5,19 +5,19 @@ onready var token_scene = preload("res://Scenes/Token/Token.tscn")
 onready var game = get_node("../../")
 
 class_name Player
-
+var consecutive_sixes = 0;
 var tokens = []
 var _has_turn: bool = false;
 var has_turn setget _set_has_turn, _get_has_turn
 
 func _set_has_turn(value: bool):
-	_has_turn = true;
-	last_moves = []
+	_has_turn = value;
+	consecutive_sixes = 0
 	
 func _get_has_turn():
 	return _has_turn
 
-var last_moves = [];
+
 var tokens_can_move = [];
 
 signal token_clicked_for_move(token);
@@ -29,7 +29,10 @@ func _ready() -> void:
 	)
 
 func _process(_delta: float) -> void:
-	pass
+	# return
+	if _get_has_turn():
+		print(name)
+		print(consecutive_sixes)
 
 func initialize():
 	var tokens = Node2D.new()
@@ -56,6 +59,16 @@ func _on_token_clicked(token):
 	
 func can_any_token_move(rolled:int) -> Array:
 	tokens_can_move = [];
+	
+	if rolled == 6:
+		consecutive_sixes += 1;
+	else:
+		consecutive_sixes = 0;
+	
+	# Return, No Token can move and pass the round to other player, if there are 3 consecutive sixes
+	if consecutive_sixes >= 3:
+		return []
+		
 	for token in tokens:
 		if token.can_move(rolled, game):
 			tokens_can_move.push_back(token)

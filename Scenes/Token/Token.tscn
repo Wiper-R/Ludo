@@ -61,3 +61,5 @@ polygon = PoolVector2Array( -1, 14, -29, -28, -30, -38, -28, -48, -19, -59, -8, 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 1 )
 anims/rolling = SubResource( 2 )
+
+[node name="MovePlayer" type="AnimationPlayer" parent="."]
