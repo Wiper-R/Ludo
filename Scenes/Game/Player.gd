@@ -21,6 +21,7 @@ var last_moves = [];
 var tokens_can_move = [];
 
 signal token_clicked_for_move(token);
+signal token_done_moving(has_extra_chance);
 
 func _ready() -> void:
 	assert(
@@ -71,11 +72,9 @@ func handle_move(rolled: int):
 			
 	print("Token Clicked %s" % token);
 	print("Moving...")
+	token.run_move(rolled)
 	
-	var has_more_turn = false;
-	
-	yield(get_tree().create_timer(0.5), "timeout")
-	
+	var has_more_turn = yield(self, "token_done_moving");	
 	if has_more_turn:
 		game.get_node("Dice").reset()
 	else:

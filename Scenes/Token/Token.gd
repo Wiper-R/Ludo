@@ -10,8 +10,7 @@ signal token_clicked(token);
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	area2d.connect("input_event", self, "_on_Area2D_input_event")
-	connect("token_clicked", player, "_on_token_clicked");
-	
+	connect("token_clicked", player, "_on_token_clicked");	
 
 func _token_clicked():
 	emit_signal("token_clicked", self)
@@ -32,3 +31,7 @@ func _on_Area2D_input_event(_viewport: Node, event: InputEvent, _shape_idx: int)
 func can_move(rolled: int, game) -> bool:
 	return true
 	
+func run_move(rolled: int) -> void:
+	var has_extra_chance = false;
+	yield(get_tree().create_timer(0.5), "timeout")
+	player.emit_signal("token_done_moving", has_extra_chance)
