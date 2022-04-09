@@ -28,3 +28,7 @@ func _on_Area2D_input_event(_viewport: Node, event: InputEvent, _shape_idx: int)
 		
 	_token_clicked()
 	
+	
+func can_move(rolled: int, game) -> bool:
+	return true
+	

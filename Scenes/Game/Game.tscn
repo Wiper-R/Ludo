@@ -204,4 +204,5 @@ flip_h = true
 position = Vector2( 923, 357 )
 
 [node name="Dice" parent="." instance=ExtResource( 7 )]
+visible = false
 z_index = 1

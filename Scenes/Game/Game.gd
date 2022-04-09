@@ -34,7 +34,7 @@ func switch_turn() -> void:
 		player.has_turn = false;
 	
 	
-	var player: Player = players.get_node(current_players[turn_idx]);
+	var player = players.get_node(current_players[turn_idx]);
 	player.has_turn = true;
 	var dice_position = player.get_node("DicePosition")
 	dice.reset()
@@ -53,4 +53,9 @@ func _process(_delta: float) -> void:
 		switch_turn()
 
 func dice_rolled(rolled: int) -> void:
-	print("Dice rolled: %s" % rolled)
+	var cp = players.get_node(current_players[turn_idx])
+	if len(cp.can_any_token_move(rolled)) > 0:
+		cp.handle_move(rolled)
+	else:
+		yield(get_tree().create_timer(0.5), "timeout")
+		switch_turn()
