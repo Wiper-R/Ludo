@@ -43,7 +43,7 @@ func switch_turn() -> void:
 
 func _ready() -> void:
 	dice.block()
-	_assign_players(2)
+	_assign_players(4)
 	switch_turn()
 	dice.visible = true;
 	

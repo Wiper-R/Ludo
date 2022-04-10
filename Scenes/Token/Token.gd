@@ -22,8 +22,11 @@ var local_position_on_board: int = -1;
 signal token_clicked(token);
 
 
-func is_in_home_row():
-	return local_position_on_board >= 52 - 1;
+func is_in_home_row(lp = null):
+	if lp == null:
+		return local_position_on_board >= 52 - 1;
+	else:
+		return lp >= 52 - 1;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -65,6 +68,25 @@ func set_rolling_animation(value: bool) -> void:
 func _get_global_point_position(pidx: int) -> Vector2:
 	return player.game.get_node("Path2D").get_curve().get_point_position(pidx)
 	
+	
+func _get_all_tokens_on_position(pidx: int) -> Array:
+	if pidx == -1:
+		return [];
+	
+	var tokens = []
+	
+	if !is_in_home_row(pidx):
+		for p in player.game.players.get_children():
+				for token in p.tokens:
+						if token.global_position_on_board == pidx:
+							tokens.push_back(token) 
+	else:
+		for token in player.tokens:
+			if token.is_in_home_row() && token.local_position_on_board == pidx:
+				tokens.push_back(token)
+					
+					
+	return tokens;
 
 func _move_token_to_out():
 	var length = 0.5;
@@ -100,13 +122,16 @@ func _move_token_by_points(points: int):
 	animation.track_set_path(scale_track_idx, ":scale")
 	
 	for i in range(points):
+		var prev_pos = global_position_on_board;
 		global_position_on_board += 1;
+		local_position_on_board += 1;
+		
 		
 		if global_position_on_board == 52:
 			global_position_on_board = 0;
 			
 		# Position
-		animation.track_insert_key(pos_track_idx, current_ts, _get_global_point_position(global_position_on_board - 1))
+		animation.track_insert_key(pos_track_idx, current_ts, _get_global_point_position(prev_pos))
 		animation.track_insert_key(pos_track_idx, current_ts + length, _get_global_point_position(global_position_on_board))
 		
 		# Scale
@@ -118,20 +143,80 @@ func _move_token_by_points(points: int):
 		
 	move_player.add_animation("move", animation)
 	move_player.play("move")
+	
+func _do_tokens_reposition(tokens: Array):
+	var num_tokens = len(tokens);
+	
+	var mid_token;
+	
+	if num_tokens % 2 == 0:
+		mid_token = 0
+	else:
+		mid_token = num_tokens - 1 / 2
+	
+	if num_tokens > 1:
+		for i in range(num_tokens):
+			tokens[i].reset_position()
+			tokens[i].scale = Vector2.ONE * 0.7
+		
+		if num_tokens % 2 == 0:
+			var offset = 0;
+			var cp = num_tokens / 2;
+			for i in range(1, cp + 1):
+				if i == 1:
+					offset += 7.5;
+				else:
+					offset += 15;
+				tokens[cp - i].position.x -= offset
+				tokens[cp + i - 1].position.x += offset
+		else:
+			var offset = 0;
+			var cp = (num_tokens + 1) / 2;
+			for i in range(1, cp + 1):
+				offset += 7.5;
+				tokens[cp - i].position.x -= offset
+				tokens[cp + i - 2].position.x += offset
+	else:
+		for token in tokens:
+			token.reset_position()
+
+func reset_position() -> void:
+	if !is_in_home_row():
+		position = _get_global_point_position(global_position_on_board)
+		scale = Vector2.ONE
 
 func run_move(rolled: int) -> void:
 	var has_extra_chance = false;
 	# yield(get_tree().create_timer(0.5), "timeout")
 	
+	var tokens: Array;
+	
+	if !is_in_home_row():
+		tokens = _get_all_tokens_on_position(global_position_on_board);
+	else:
+		tokens = _get_all_tokens_on_position(local_position_on_board)
+		
+	tokens.erase(self)
+	
+	_do_tokens_reposition(tokens);
+		
+	
 	if global_position_on_board == -1:
 		_move_token_to_out()
 		global_position_on_board = GLOBAL_HOME_POSITIONS[player.name]
+		local_position_on_board = 0;
 	else:
 		_move_token_by_points(rolled)
-		
 	
 	yield(move_player, "animation_finished")
 	move_player.remove_animation("move")
+	
+	if !is_in_home_row():
+		tokens = _get_all_tokens_on_position(global_position_on_board);
+	else:
+		tokens = _get_all_tokens_on_position(local_position_on_board)
+
+	_do_tokens_reposition(tokens);
 	
 	if rolled == 6:
 		has_extra_chance = true;
