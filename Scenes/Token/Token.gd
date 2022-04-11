@@ -55,12 +55,26 @@ func _on_Area2D_input_event(_viewport: Node, event: InputEvent, _shape_idx: int)
 	_token_clicked()
 
 func can_move(rolled: int, game) -> bool:
-	if global_position_on_board == -1:
-		if rolled == 6:
-			return true
-		else:
+	if local_position_on_board == -1:
+		if rolled != 6:
 			return false
+	else:
+		if local_position_on_board + rolled > 57:
+			return false;
 			
+		for i in range(1, rolled + 1):
+			if !is_in_home_row(local_position_on_board + i):
+				if (global_position_on_board + i) in SAFE_ZONES:
+					continue
+					
+				var tokens = _get_all_tokens_on_position(global_position_on_board + i);
+				
+				if len(tokens) > 1:
+					if tokens[0].player != player:
+						return false;
+			else:
+				break;
+				
 	return true;
 	
 func set_rolling_animation(value: bool) -> void:
