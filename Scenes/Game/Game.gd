@@ -50,13 +50,15 @@ func _ready() -> void:
 	
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_up"):
-		# switch_turn()
-		get_node("Players/%s" % current_players[turn_idx]).get_node("Tokens/T1").died()
+		switch_turn()
 
 func dice_rolled(rolled: int) -> void:
 	var cp = players.get_node(current_players[turn_idx])
-	if len(cp.can_any_token_move(rolled)) > 0:
+	var moveable_tokens = cp.can_any_token_move(rolled);
+	if len(moveable_tokens) > 0:
 		cp.handle_move(rolled)
+		if len(moveable_tokens) == 1:
+			cp._on_token_clicked(moveable_tokens[0])
 	else:
 		yield(get_tree().create_timer(0.5), "timeout")
 		switch_turn()

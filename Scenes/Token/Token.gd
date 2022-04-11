@@ -285,7 +285,6 @@ func run_move(rolled: int) -> void:
 		
 	for token in tokens:
 		if token.player != player:
-			print("Send %s(%s) to home" % token.player.name, token.name)
 			token.died()
 			yield (token, "died")
 			_tokens.erase(token)
