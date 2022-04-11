@@ -66,8 +66,8 @@ func can_any_token_move(rolled:int) -> Array:
 		consecutive_sixes = 0;
 	
 	# Return, No Token can move and pass the round to other player, if there are 3 consecutive sixes
-	#if consecutive_sixes >= 3:
-	#	return []
+	if consecutive_sixes >= 3:
+		return []
 		
 	for token in tokens:
 		if token.can_move(rolled, game):

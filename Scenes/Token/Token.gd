@@ -20,7 +20,7 @@ var global_position_on_board: int = -1;
 var local_position_on_board: int = -1;
 
 signal token_clicked(token);
-
+signal died;
 
 func is_in_home_row(lp = null):
 	if lp == null:
@@ -62,8 +62,10 @@ func set_rolling_animation(value: bool) -> void:
 	rolling_base.visible = value;
 	if value:
 		animation_player.play("rolling")
+		scale = Vector2.ONE
 	else:
 		animation_player.stop()
+		scale = Vector2.ONE * 0.9
 
 func _get_global_point_position(pidx: int) -> Vector2:
 	return player.game.get_node("Path2D").get_curve().get_point_position(pidx)
@@ -201,12 +203,52 @@ func _do_tokens_reposition(tokens: Array):
 	else:
 		for token in tokens:
 			token.reset_position()
+			token.scale = Vector2.ONE * 0.9
 
 func reset_position() -> void:
 	if !is_in_home_row():
 		position = _get_global_point_position(global_position_on_board)
 		scale = Vector2.ONE
 		
+		
+func died() -> void:
+	var length = 0.1
+	var current_ts = 0;
+	var animation = Animation.new()
+	animation.set_length(length * (local_position_on_board + 1));
+	
+	var pos_track_idx = animation.add_track(Animation.TYPE_VALUE);
+	animation.track_set_path(pos_track_idx, ":position")
+	
+	for i in range(local_position_on_board, -1, -1):
+		var prev_pos = global_position_on_board;
+		
+		global_position_on_board -= 1;
+		local_position_on_board -= 1;
+		
+		if global_position_on_board == -1:
+			global_position_on_board = 51;
+			
+		var  new_pos = global_position_on_board;
+		
+		var prev_pos_vec: Vector2 = _get_global_point_position(prev_pos);
+		var new_pos_vec: Vector2 = _get_global_point_position(new_pos);
+		
+		
+		# Position
+		animation.track_insert_key(pos_track_idx, current_ts, prev_pos_vec)
+		animation.track_insert_key(pos_track_idx, current_ts + length, new_pos_vec)
+		
+		current_ts += length
+	
+	animation.track_insert_key(pos_track_idx, current_ts, get_node("../../BasePositions/%s" % name).position)
+	move_player.add_animation("move", animation)
+	move_player.play("move")
+	yield(move_player, "animation_finished")
+	local_position_on_board = -1;
+	global_position_on_board = -1;
+	emit_signal("died")
+	move_player.remove_animation("move")
 
 func run_move(rolled: int) -> void:
 	var has_extra_chance = false;
@@ -229,8 +271,7 @@ func run_move(rolled: int) -> void:
 		global_position_on_board = GLOBAL_HOME_POSITIONS[player.name]
 		local_position_on_board = 0;
 	else:
-		# _move_token_by_points(rolled)
-		_move_token_by_points(54)
+		_move_token_by_points(rolled)
 	
 	yield(move_player, "animation_finished")
 	move_player.remove_animation("move")
@@ -239,8 +280,19 @@ func run_move(rolled: int) -> void:
 		tokens = _get_all_tokens_on_position(global_position_on_board);
 	else:
 		tokens = _get_all_tokens_on_position(local_position_on_board)
+	
+	var _tokens = [] + tokens;
+		
+	for token in tokens:
+		if token.player != player:
+			print("Send %s(%s) to home" % token.player.name, token.name)
+			token.died()
+			yield (token, "died")
+			_tokens.erase(token)
+			has_extra_chance = true;
+			# TODO: Add break here
 
-	_do_tokens_reposition(tokens);
+	_do_tokens_reposition(_tokens);
 	
 	if rolled == 6:
 		has_extra_chance = true;

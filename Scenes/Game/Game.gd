@@ -49,8 +49,9 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_up") and !dice.is_rolling():
-		switch_turn()
+	if Input.is_action_just_pressed("ui_up"):
+		# switch_turn()
+		get_node("Players/%s" % current_players[turn_idx]).get_node("Tokens/T1").died()
 
 func dice_rolled(rolled: int) -> void:
 	var cp = players.get_node(current_players[turn_idx])
