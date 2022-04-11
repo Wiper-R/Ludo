@@ -16,6 +16,11 @@ const GLOBAL_HOME_POSITIONS = {
 	"Yellow": 39,
 }
 
+
+const SAFE_ZONES = [
+	0, 8, 13, 21, 26, 34, 39, 47
+]
+
 var global_position_on_board: int = -1;
 var local_position_on_board: int = -1;
 
@@ -282,14 +287,15 @@ func run_move(rolled: int) -> void:
 		tokens = _get_all_tokens_on_position(local_position_on_board)
 	
 	var _tokens = [] + tokens;
-		
-	for token in tokens:
-		if token.player != player:
-			token.died()
-			yield (token, "died")
-			_tokens.erase(token)
-			has_extra_chance = true;
-			# TODO: Add break here
+	
+	if !(global_position_on_board in SAFE_ZONES):
+		for token in tokens:
+			if token.player != player:
+				token.died()
+				yield (token, "died")
+				_tokens.erase(token)
+				has_extra_chance = true;
+				# TODO: Add break here
 
 	_do_tokens_reposition(_tokens);
 	
