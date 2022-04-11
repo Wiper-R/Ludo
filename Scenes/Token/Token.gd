@@ -5,6 +5,7 @@ onready var rolling_base = get_node("RollingBase");
 onready var animation_player = get_node("AnimationPlayer");
 onready var move_player: AnimationPlayer = get_node("MovePlayer");
 onready var initial_scale: Vector2 = scale;
+onready var home_row_path: Curve2D = get_node("../../Path2D").get_curve();
 
 
 
@@ -14,7 +15,6 @@ const GLOBAL_HOME_POSITIONS = {
 	"Green": 26,
 	"Yellow": 39,
 }
-
 
 var global_position_on_board: int = -1;
 var local_position_on_board: int = -1;
@@ -67,6 +67,9 @@ func set_rolling_animation(value: bool) -> void:
 
 func _get_global_point_position(pidx: int) -> Vector2:
 	return player.game.get_node("Path2D").get_curve().get_point_position(pidx)
+	
+func _get_home_row_point_position(pidx: int) -> Vector2:
+	return home_row_path.get_point_position(pidx)
 	
 	
 func _get_all_tokens_on_position(pidx: int) -> Array:
@@ -123,6 +126,7 @@ func _move_token_by_points(points: int):
 	
 	for i in range(points):
 		var prev_pos = global_position_on_board;
+		
 		global_position_on_board += 1;
 		local_position_on_board += 1;
 		
@@ -130,9 +134,27 @@ func _move_token_by_points(points: int):
 		if global_position_on_board == 52:
 			global_position_on_board = 0;
 			
+			
+		var prev_pos_vec: Vector2;
+		var new_pos_vec: Vector2;
+		
+		if is_in_home_row(local_position_on_board):
+			new_pos_vec = _get_home_row_point_position(local_position_on_board - 51)
+			
+			if is_in_home_row(local_position_on_board - 1):
+				prev_pos_vec = _get_home_row_point_position(local_position_on_board - 51 - 1)
+			else:
+				prev_pos_vec = _get_global_point_position(prev_pos)
+				
+		else:
+			prev_pos_vec = _get_global_point_position(prev_pos)
+			new_pos_vec = _get_global_point_position(global_position_on_board)
+			
+			
+			
 		# Position
-		animation.track_insert_key(pos_track_idx, current_ts, _get_global_point_position(prev_pos))
-		animation.track_insert_key(pos_track_idx, current_ts + length, _get_global_point_position(global_position_on_board))
+		animation.track_insert_key(pos_track_idx, current_ts, prev_pos_vec)
+		animation.track_insert_key(pos_track_idx, current_ts + length, new_pos_vec)
 		
 		# Scale
 		animation.track_insert_key(scale_track_idx, current_ts, initial_scale)
@@ -184,6 +206,7 @@ func reset_position() -> void:
 	if !is_in_home_row():
 		position = _get_global_point_position(global_position_on_board)
 		scale = Vector2.ONE
+		
 
 func run_move(rolled: int) -> void:
 	var has_extra_chance = false;
@@ -206,7 +229,8 @@ func run_move(rolled: int) -> void:
 		global_position_on_board = GLOBAL_HOME_POSITIONS[player.name]
 		local_position_on_board = 0;
 	else:
-		_move_token_by_points(rolled)
+		# _move_token_by_points(rolled)
+		_move_token_by_points(54)
 	
 	yield(move_player, "animation_finished")
 	move_player.remove_animation("move")
