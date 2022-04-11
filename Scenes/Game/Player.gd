@@ -95,6 +95,19 @@ func handle_move(rolled: int):
 	
 	var has_more_turn = yield(self, "token_done_moving");
 	
+	# Check if player has won
+	var counter = 0;
+	
+	for t in tokens:
+		if token.local_position_on_board == 57:
+			counter += 1;
+		else:
+			break;
+			
+	if counter == 4:
+		print("%s has won" % name)
+		get_tree().paused = true;
+	
 	if has_more_turn:
 		game.get_node("Dice").reset()
 	else:
